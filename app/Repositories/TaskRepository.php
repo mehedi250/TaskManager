@@ -7,12 +7,12 @@ class TaskRepository implements TaskInterface{
 
     public function getAll()
     {
-        return Task::all();
+        return Task::orderBy('id', 'desc')->get();
     }
 
     public function findById($id)
     {
-        return Task::where('id', $id)->first();
+        return Task::where('id', $id)->with('project')->first();
     }
 
     public function create($data)

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Axios from 'axios';
-import { Button, Card, Spinner } from 'react-bootstrap';
+import { Badge, Button, Card, Spinner } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default class ProjectList extends Component {
     state = {
@@ -22,8 +23,17 @@ export default class ProjectList extends Component {
     render() {
         return (
             <>
-            <h2>Projects</h2>
+            <div className="header-part">
+                <div className="float-left">
+                    <h2>Projects <Badge className='text-white' variant="primary">{this.state.projectList.length}</Badge></h2>
+                </div>
+                <div className="float-right">
+                    <Link className="btn btn-info text-white" to="/projects/create">+ Create New</Link>
+                </div>
+            </div>
+            <div className="clearfix"></div>
             <hr />
+
             <div className="row">
             {this.state.isLoading && 
             <div className="text-center w-100 py-4">
@@ -38,7 +48,7 @@ export default class ProjectList extends Component {
                 <div className="col-md-6 py-2" key={index}>
                     <Card>
                         <Card.Header>
-                            {project.name}
+                            {project.name} <Badge className='text-white' variant="primary">{project.tasks_count}</Badge>
                         </Card.Header>
                         <Card.Body>
                             <Card.Text>

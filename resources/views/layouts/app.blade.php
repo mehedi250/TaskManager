@@ -19,8 +19,9 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
-    <div id="app">
+    <div id="app" class="d-flex flex-column min-vh-100">
 
     </div>
 </body>

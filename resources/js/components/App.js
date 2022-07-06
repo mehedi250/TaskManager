@@ -7,6 +7,8 @@ import Header from './layouts/Header';
 import About from './pages/About';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
+import ProjectList from './pages/project/ProjectList';
+import ProjectCreate from './pages/project/ProjectCreate';
 
 
 class App extends Component {
@@ -36,8 +38,17 @@ class App extends Component {
                     </nav> */}
                     <Routes>
                         <Route path="/" caseSensitive={false} element={<Home />} />
+                        {/* <Route path="/projects" caseSensitive={false} element={<ProjectList />} /> */}
+                        <Route path="/projects-create" caseSensitive={false} element={<ProjectCreate />} />
                         <Route path="/about" caseSensitive={false} element={<About />} />
                         <Route path="/contact" caseSensitive={false} element={<Contact />} />
+                        <Route path="/projects/create" caseSensitive={false} element={<ProjectCreate />} />
+
+                        <Route path="/projects" element={<ProjectList />}>
+                            <Route path=":id" element={<ProjectCreate />} />
+                            <Route path="create" element={<ProjectCreate />} />
+                            <Route path="edit/:id" element={<ProjectCreate />} />
+                        </Route>
                     </Routes>
                     
                 </Container>

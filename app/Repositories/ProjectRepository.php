@@ -7,12 +7,12 @@ class ProjectRepository implements ProjectInterface{
 
     public function getAll()
     {
-        return Project::all();
+        return Project::withCount('tasks')->orderBy('id', 'desc')->get();
     }
 
     public function findById($id)
     {
-        return Project::where('id', $id)->first();
+        return Project::where('id', $id)->with('tasks')->first();
     }
 
     public function create($data)

@@ -15,6 +15,9 @@ const Header = () => {
             <Link to="">
               <Nav.Item className='text-white mr-2'>Home</Nav.Item>
             </Link>
+            <Link to="/projects">
+              <Nav.Item className='text-white mr-2'>Projects</Nav.Item>
+            </Link>
             <Link to="/about">
               <Nav.Item className='text-white mr-2'>About</Nav.Item>
             </Link>
