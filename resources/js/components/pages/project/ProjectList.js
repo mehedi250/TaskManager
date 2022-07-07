@@ -16,8 +16,7 @@ export default class ProjectList extends Component {
     getProjectList=()=>{
         this.setState({isLoading: true});
         Axios.get('http://127.0.0.1:8000/api/projects').then((response) => {
-            this.setState({projectList: response.data.data});
-            this.setState({isLoading: false});
+            this.setState({projectList: response.data.data, isLoading: false});
         });
     }
     render() {
@@ -54,7 +53,10 @@ export default class ProjectList extends Component {
                             <Card.Text>
                                 {project.description}
                             </Card.Text>
-                            <Button variant='primary' className='mr-2'>View</Button>
+                            <Link to={`/projects/${project.id}`}>
+                                <Button variant='primary' className='mr-2'>View</Button>
+                            </Link>
+                            
                             <Button variant='success' className='mr-2'>Edit</Button>
                             <Button variant='danger' className='mr-2'>Delete</Button>
                         </Card.Body>

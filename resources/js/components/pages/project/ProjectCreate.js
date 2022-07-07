@@ -20,16 +20,18 @@ class ProjectCreate extends Component {
 
     handleSubmit = async (e)=>{
         e.preventDefault();
+        this.setState({isLoading: true});
 
         const postData = {name: this.state.name, description: this.state.description, user_id: 1}
         Axios.post('http://127.0.0.1:8000/api/projects', postData).then((response) => {
             if(response.data.success){
-                this.setState({name: "", description: ""});
                 alert(response.data.message);
+                this.setState({name: "", description: ""});
             }
             else{
                 alert('error');
             }
+            this.setState({isLoading: false});
         });
     }
     render() {
@@ -58,9 +60,16 @@ class ProjectCreate extends Component {
                             <Form.Control onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="5" placeholder="Enter Project Description" />
                         </Form.Group>
                         
+                        { this.state.isLoading && 
+                        <Button variant="primary" type="button" disabled>
+                            Saving...
+                        </Button>
+                        }
+                        { !this.state.isLoading && 
                         <Button variant="primary" type="submit">
                             Submit
                         </Button>
+                        }
                     </Form>
                 </Card.Body>
             </Card>

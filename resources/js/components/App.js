@@ -9,6 +9,8 @@ import Home from './pages/Home';
 import Contact from './pages/Contact';
 import ProjectList from './pages/project/ProjectList';
 import ProjectCreate from './pages/project/ProjectCreate';
+import ProjectView from './pages/project/ProjecView';
+import ProjectShow from './pages/project/ProjectShow';
 
 
 class App extends Component {
@@ -23,31 +25,20 @@ class App extends Component {
             <Router>
                 <Header/>
                 <Container className='py-4'>
-                    {/* <nav>
-                        <ul>
-                            <li>
-                            <Link to="/">Home</Link>
-                            </li>
-                            <li>
-                            <Link to="/about">About</Link>
-                            </li>
-                            <li>
-                            <Link to="/contact">Contact</Link>
-                            </li>
-                        </ul>
-                    </nav> */}
+                   
                     <Routes>
                         <Route path="/" caseSensitive={false} element={<Home />} />
-                        {/* <Route path="/projects" caseSensitive={false} element={<ProjectList />} /> */}
-                        <Route path="/projects-create" caseSensitive={false} element={<ProjectCreate />} />
                         <Route path="/about" caseSensitive={false} element={<About />} />
                         <Route path="/contact" caseSensitive={false} element={<Contact />} />
-                        <Route path="/projects/create" caseSensitive={false} element={<ProjectCreate />} />
 
-                        <Route path="/projects" element={<ProjectList />}>
-                            <Route path=":id" element={<ProjectCreate />} />
+                        <Route path="/project/:id" caseSensitive={false} element={<ProjectView />} />
+                       
+                        <Route path="/projects/" >
+                            <Route path="" element={<ProjectList />} />
+                            <Route path=":id" element={<ProjectView />} />
                             <Route path="create" element={<ProjectCreate />} />
                             <Route path="edit/:id" element={<ProjectCreate />} />
+
                         </Route>
                     </Routes>
                     
