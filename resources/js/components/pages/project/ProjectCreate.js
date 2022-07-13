@@ -1,14 +1,16 @@
 import Axios from 'axios';
 import React, { Component } from 'react'
-import { Button, Card, Form } from 'react-bootstrap'
+import { Alert, Button, Card, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
-
+import Swal from 'sweetalert2/dist/sweetalert2.js'
+import 'sweetalert2/src/sweetalert2.scss'
 class ProjectCreate extends Component {
     state = {
         isLoading: false,
         name: "",
-        description: ""
+        description: "",
+        errors: []
     };
 
     handleName =(e)=>{
@@ -18,6 +20,10 @@ class ProjectCreate extends Component {
         this.setState({description: e.target.value});
     }
 
+    handleError=()=>{
+        this.setState({errors: []});
+    }
+
     handleSubmit = async (e)=>{
         e.preventDefault();
         this.setState({isLoading: true});
@@ -25,11 +31,18 @@ class ProjectCreate extends Component {
         const postData = {name: this.state.name, description: this.state.description, user_id: 1}
         Axios.post('http://127.0.0.1:8000/api/projects', postData).then((response) => {
             if(response.data.success){
-                alert(response.data.message);
-                this.setState({name: "", description: ""});
+                Swal.fire({
+                    icon: 'success',
+                    title: response.data.message,
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                this.setState({name: "", description: "", errors: []});
             }
             else{
-                alert('error');
+                this.setState({errors: response.data.message});
+            
+                setTimeout(() => this.setState({errors: []}), 2000);
             }
             this.setState({isLoading: false});
         });
@@ -47,6 +60,12 @@ class ProjectCreate extends Component {
             </div>
             <div className="clearfix"></div>
             <hr />
+            
+            {(this.state.errors.length>0) &&  this.state.errors.map((error, index)=>(
+                <Alert severity="error" key={index}>{error}</Alert>
+            ))}
+            
+      
             <Card>
                 <Card.Body>
                     <Form onSubmit={this.handleSubmit}>
