@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Container } from 'react-bootstrap';
 import Footer from './layouts/Footer';
 import Header from './layouts/Header';
@@ -14,10 +14,7 @@ import ProjectShow from './pages/project/ProjectShow';
 
 
 class App extends Component {
-    state = {
-       
-    }
-
+  
 
     render() {
         return (
@@ -31,7 +28,7 @@ class App extends Component {
                         <Route path="/about" caseSensitive={false} element={<About />} />
                         <Route path="/contact" caseSensitive={false} element={<Contact />} />
 
-                        <Route path="/project/:id" caseSensitive={false} element={<ProjectView />} />
+                        <Route path="/project/:id" caseSensitive={false} element={<ProjectShow />} />
                        
                         <Route path="/projects/" >
                             <Route path="" element={<ProjectList />} />

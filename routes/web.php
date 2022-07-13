@@ -17,6 +17,13 @@ Route::get('/{path?}', function () {
     return view('layouts.app');
 })->where('path', '.*');
 
+// Route::get('/{path?}', function () {
+//     return view('layouts.app');
+// });
+// Route::get('/{path1}/{path2}', function () {
+//     return view('layouts.app');
+// });
+
 Auth::routes();
 
 // Route::get('/home', 'HomeController@index')->name('home');
