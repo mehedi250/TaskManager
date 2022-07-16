@@ -5,12 +5,15 @@ import { Link } from 'react-router-dom'
 
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
+
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer, NotificationManager} from 'react-notifications';
+
 class ProjectCreate extends Component {
     state = {
         isLoading: false,
         name: "",
-        description: "",
-        errors: []
+        description: ""
     };
 
     handleName =(e)=>{
@@ -18,10 +21,6 @@ class ProjectCreate extends Component {
     }
     handleDescription =(e)=>{
         this.setState({description: e.target.value});
-    }
-
-    handleError=()=>{
-        this.setState({errors: []});
     }
 
     handleSubmit = async (e)=>{
@@ -37,12 +36,12 @@ class ProjectCreate extends Component {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                this.setState({name: "", description: "", errors: []});
+                this.setState({name: "", description: ""});
             }
             else{
-                this.setState({errors: response.data.message});
-            
-                setTimeout(() => this.setState({errors: []}), 2000);
+                response.data.message.map((error, index)=>{
+                    NotificationManager.error(error, 'Error!');
+                })
             }
             this.setState({isLoading: false});
         });
@@ -50,6 +49,7 @@ class ProjectCreate extends Component {
     render() {
         return (
         <>
+            <NotificationContainer/>
             <div className="header-part">
                 <div className="float-left">
                     <h2>Create New Project </h2>
@@ -60,12 +60,7 @@ class ProjectCreate extends Component {
             </div>
             <div className="clearfix"></div>
             <hr />
-            
-            {(this.state.errors.length>0) &&  this.state.errors.map((error, index)=>(
-                <Alert severity="error" key={index}>{error}</Alert>
-            ))}
-            
-      
+
             <Card>
                 <Card.Body>
                     <Form onSubmit={this.handleSubmit}>
