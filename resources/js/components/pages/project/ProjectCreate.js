@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import React, { Component } from 'react'
-import { Alert, Button, Card, Form } from 'react-bootstrap'
+import { Button, Card, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 
 import Swal from 'sweetalert2/dist/sweetalert2.js'
@@ -8,6 +8,7 @@ import 'sweetalert2/src/sweetalert2.scss'
 
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
+import { createProjectApi } from '../../../api/serviceApi';
 
 class ProjectCreate extends Component {
     state = {
@@ -28,7 +29,8 @@ class ProjectCreate extends Component {
         this.setState({isLoading: true});
 
         const postData = {name: this.state.name, description: this.state.description, user_id: 1}
-        Axios.post('http://127.0.0.1:8000/api/projects', postData).then((response) => {
+
+        createProjectApi(postData).then((response) => {
             if(response.data.success){
                 Swal.fire({
                     icon: 'success',
@@ -44,6 +46,10 @@ class ProjectCreate extends Component {
                 })
             }
             this.setState({isLoading: false});
+        })
+        .catch(error=>{
+            this.setState({isLoading: false});
+            console.log("LandingPop", error)
         });
     }
     render() {
