@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Axios from 'axios';
 import { Badge, Button, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { getProjectListApi } from '../../../api/serviceApi';
 
 export default class ProjectList extends Component {
     state = {
@@ -15,12 +16,15 @@ export default class ProjectList extends Component {
 
     getProjectList=()=>{
         this.setState({isLoading: true});
-        Axios.get('http://127.0.0.1:8000/api/projects').then((response) => {
+        getProjectListApi().then((response) => {
             this.setState({projectList: response.data.data, isLoading: false});
+        })
+        .catch(error=>{
+            this.setState({projectList: [], isLoading: false});
+            console.log("LandingPop", error)
         });
     }
     render() {
-        console.log(this.props);
         return (
             <>
             <div className="header-part">
