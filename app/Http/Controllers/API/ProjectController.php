@@ -59,8 +59,9 @@ class ProjectController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => $validator->errors()->all(),
-                'status' => false
+                'success' => false,
+                'errors' => $validator->errors(),
+                'status' => 'validation-error'
             ]);
         }
 
@@ -75,7 +76,7 @@ class ProjectController extends Controller
             }    
         } catch (\Throwable $th) {
             return response()->json([
-                'message' => ['Something went wrong!'],
+                'message' => 'Something went wrong!',
                 'status' => false
             ]);
         }
@@ -90,12 +91,27 @@ class ProjectController extends Controller
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => $validator->errors()->all(),
-                'status' => false
+                'success' => false,
+                'errors' => $validator->errors(),
+                'status' => 'validation-error'
             ]);
         }
 
-        $project = $this->projectRepository->edit($request, $id);
+        try {
+            $project = $this->projectRepository->edit($request, $id);
+            if($project){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Project updated successfully',
+                    'data' => $project
+                ]);
+            }    
+        } catch (\Throwable $th) {
+            return response()->json([
+                'message' => 'Something went wrong!',
+                'status' => false
+            ]);
+        }
     }
 
     public function destroy($id)

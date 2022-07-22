@@ -12,6 +12,8 @@ import ProjectCreate from './pages/project/ProjectCreate';
 import ProjectView from './pages/project/ProjecView';
 import ProjectShow from './pages/project/ProjectShow';
 
+import 'react-notifications/lib/notifications.css';
+import {NotificationContainer} from 'react-notifications';
 
 class App extends Component {
   
@@ -22,6 +24,7 @@ class App extends Component {
             <Router>
                 <Header/>
                 <Container className='py-4'>
+                    <NotificationContainer/>
                    
                     <Routes>
                         <Route path="/" caseSensitive={false} element={<Home />} />

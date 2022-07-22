@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Axios from 'axios';
 import { Badge, Button, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { getProjectListApi } from '../../../api/serviceApi';

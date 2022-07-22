@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Axios from 'axios';
 import { Badge, Button, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
+import { getProjectApi } from '../../../api/serviceApi';
 
 function withRouter(Component) {
   function ComponentWithRouter(props) {
@@ -28,8 +28,12 @@ class ProjectView extends Component {
 
     getProject=()=>{
         this.setState({isLoading: true});
-        Axios.get(`http://127.0.0.1:8000/api/projects/${this.props.params.id}`).then((response) => {
+        getProjectApi(this.props.params.id).then((response) => {
             this.setState({taskList: response.data.data.tasks, project: response.data.data, isLoading: false});
+        })
+        .catch(error=>{
+            this.setState({taskList: [], project: [], isLoading: false});
+            console.log("LandingPop", error)
         });
     }
     render() {
