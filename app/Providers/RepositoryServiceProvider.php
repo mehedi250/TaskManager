@@ -6,9 +6,11 @@ use Illuminate\Support\ServiceProvider;
 
 use App\Interfaces\ProjectInterface;
 use App\Interfaces\TaskInterface;
+use App\Interfaces\AuthInterface;
 
 use App\Repositories\ProjectRepository;
 use App\Repositories\TaskRepository;
+use App\Repositories\AuthRepository;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(ProjectInterface::class, ProjectRepository::class);
         $this->app->bind(TaskInterface::class, TaskRepository::class);
+        $this->app->bind(AuthInterface::class, AuthRepository::class);
     }
 
     /**

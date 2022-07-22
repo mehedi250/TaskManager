@@ -18,6 +18,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    <script>
+        var baseUrl = '{{env('REACT_APP_API_URL')}}'
+    </script>
 </head>
 
 <body>

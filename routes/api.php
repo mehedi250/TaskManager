@@ -22,5 +22,5 @@ Route::apiResource('projects', 'API\ProjectController');
 Route::apiResource('tasks', 'API\TaskController');
 
 
-Route::post('auth/login', 'API\Auth\LoginAPIController@login');
-Route::post('auth/register', 'API\Auth\RegisterAPIController@register');
+Route::post('auth/login', 'API\Auth\AuthAPIController@login');
+Route::post('auth/register', 'API\Auth\AuthAPIController@register');
