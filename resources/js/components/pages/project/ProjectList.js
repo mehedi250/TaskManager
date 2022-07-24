@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import { Badge, Button, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { getProjectListApi } from '../../../api/serviceApi';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Swal from "sweetalert2"; 
+import { deleteProjectApi, getProjectListApi } from '../../../api/serviceApi';
+
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+
 
 export default class ProjectList extends Component {
     state = {
@@ -22,6 +27,23 @@ export default class ProjectList extends Component {
             this.setState({projectList: [], isLoading: false});
             console.log("LandingPop", error)
         });
+    }
+
+    removeListItem =(removeIndex)=>{
+        return this.state.projectList.filter((value, index) => index !== removeIndex);
+    }
+
+    handleDelete=(id, removeIndex)=>{
+        this.setState({isLoading: true});
+        deleteProjectApi(id).then((response) => {
+            Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500})
+            const newProjectList = this.removeListItem(removeIndex);
+            this.setState({projectList: newProjectList, isLoading: false});
+        })
+        .catch(error=>{
+            this.setState({isLoading: false});
+            console.log("LandingPop", error)
+        }); 
     }
     render() {
         return (
@@ -44,8 +66,8 @@ export default class ProjectList extends Component {
                     <span className="visually-hidden"></span>
                 </Spinner>    
             </div>
-            
             }
+
             {!this.state.isLoading && 
             this.state.projectList.map((project, index)=>(
                 <div className="col-md-6 py-2" key={index}>
@@ -58,11 +80,9 @@ export default class ProjectList extends Component {
                                 {project.description}
                             </Card.Text>
                             <Link to={`/projects/${project.id}`}>
-                                <Button variant='primary' className='mr-2'>View</Button>
+                                <Button variant='primary' className='mr-2 btn-sm'>View & Edit</Button>
                             </Link>
-                            
-                            <Button variant='success' className='mr-2'>Edit</Button>
-                            <Button variant='danger' className='mr-2'>Delete</Button>
+                            <Button variant='danger' onClick={()=>this.handleDelete(project.id, index)} className='btn-sm'><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
                         </Card.Body>
                     </Card>
                 </div>
