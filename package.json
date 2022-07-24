@@ -25,6 +25,9 @@
         "sass-loader": "^8.0.0"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.1.1",
+        "@fortawesome/free-solid-svg-icons": "^6.1.1",
+        "@fortawesome/react-fontawesome": "^0.2.0",
         "react-bootstrap": "^2.4.0",
         "react-confirm-alert": "^3.0.2",
         "react-notifications": "^1.7.3",

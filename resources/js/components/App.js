@@ -10,7 +10,6 @@ import Contact from './pages/Contact';
 import ProjectList from './pages/project/ProjectList';
 import ProjectCreate from './pages/project/ProjectCreate';
 import ProjectView from './pages/project/ProjecView';
-import ProjectShow from './pages/project/ProjectShow';
 
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';
@@ -23,15 +22,14 @@ class App extends Component {
         <div>
             <Router>
                 <Header/>
-                <Container className='py-4'>
+                <div  style={{minHeight: `calc(100vh - 110.4px)`}}>
+                <Container className='py-4'> 
                     <NotificationContainer/>
                    
                     <Routes>
                         <Route path="/" caseSensitive={false} element={<Home />} />
                         <Route path="/about" caseSensitive={false} element={<About />} />
                         <Route path="/contact" caseSensitive={false} element={<Contact />} />
-
-                        <Route path="/project/:id" caseSensitive={false} element={<ProjectShow />} />
                        
                         <Route path="/projects/" >
                             <Route path="" element={<ProjectList />} />
@@ -43,6 +41,7 @@ class App extends Component {
                     </Routes>
                     
                 </Container>
+                </div>
                 <Footer/>
             </Router>
         </div>

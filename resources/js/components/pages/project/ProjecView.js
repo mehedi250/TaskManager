@@ -3,6 +3,8 @@ import { Badge, Button, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import { getProjectApi } from '../../../api/serviceApi';
+import TaskCreate from './task/TaskCreate';
+import ProjectEdit from './ProjectEdit';
 
 function withRouter(Component) {
   function ComponentWithRouter(props) {
@@ -17,6 +19,8 @@ class ProjectView extends Component {
         super(props);
         this.state = {
             isLoading: true,
+            editStatus: false,    //true = show Project update form
+            isCreateTask: false,  //true = show create new task modal 
             project: {},
             taskList: []
         };
@@ -29,29 +33,50 @@ class ProjectView extends Component {
     getProject=()=>{
         this.setState({isLoading: true});
         getProjectApi(this.props.params.id).then((response) => {
-            this.setState({taskList: response.data.data.tasks, project: response.data.data, isLoading: false});
+            this.setState({taskList: response.data.data.tasks, project: response.data.data, isLoading: false, editStatus: false});
         })
         .catch(error=>{
             this.setState({taskList: [], project: [], isLoading: false});
             console.log("LandingPop", error)
         });
     }
+
+    handleCreateTask=(value=true)=>{
+        this.setState({isCreateTask: value});
+    }
+
+    handleTaskComplete=(data)=>{
+        this.setState({taskList: [...this.state.taskList, data]});
+    }
     render() {
    
         return (
             <>
             <div className="header-part">
-                <div className="float-left">
-                {!this.state.isLoading && 
-                    <h2>{this.state.project.name}  <Badge className='text-white' variant="primary">{this.state.taskList.length}</Badge></h2>
-                }
-                </div>
-                <div className="float-right">
-                    <Link className="btn btn-info text-white mx-2" to="/projects">Back</Link>
-                    <Link className="btn btn-info text-white" to="/tasks/create">+ Create New Task</Link>
+                <div className="row">
+                    <div className="col-md-7">
+                        {this.state.editStatus &&
+                            <ProjectEdit  project={this.state.project} getProject={this.getProject} />
+                        }
+                        {!this.state.isLoading && !this.state.editStatus &&
+                            <>
+                                <h2>{this.state.project.name}  <Badge className='text-white' variant="primary">{this.state.taskList.length}</Badge></h2>
+                                <p>{this.state.project.description}</p>
+                            </>
+                        }
+                        
+                    </div>
+                    <div className="col-md-5 text-right">
+                        <button className={`btn btn-outline-${this.state.project.status ===1?'success':'info'}`} disabled>
+                            {this.state.project.status ===1?'✓Completed':'Pending'}
+                        </button>
+                        <button className='btn btn-success ml-2' onClick={()=>this.setState({editStatus: !this.state.editStatus})}>{!this.state.editStatus?'Edit':'Cancel Edit'}</button>
+                        {/* <Link className="btn btn-info text-white ml-2" to="/projects">Back</Link> */}
+                        <button className="btn btn-info text-white ml-2" onClick={this.handleCreateTask} >+ Create New Task</button>
+                    </div>
                 </div>
             </div>
-            <div className="clearfix"></div>
+            {/* <div className="clearfix"></div> */}
             <hr />
 
             <div className="row">
@@ -63,12 +88,12 @@ class ProjectView extends Component {
             </div>
             }
 
-            {!this.state.isLoading && 
+            {/* {!this.state.isLoading && 
             <div className="col-12">
                 <p>{this.state.project.description}</p>
             </div>
             }
-       
+        */}
 
             {!this.state.isLoading && 
             this.state.taskList.map((task, index)=>(
@@ -91,9 +116,12 @@ class ProjectView extends Component {
                     </Card>
                 </div>
             ))}
-
-
             </div>
+            {this.state.isCreateTask && 
+                <TaskCreate project={this.state.project} handleCreateTask={this.handleCreateTask} handleTaskComplete={this.handleTaskComplete} />
+            }
+
+
             </>
         )
     }

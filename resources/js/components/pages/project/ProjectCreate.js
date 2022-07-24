@@ -75,7 +75,7 @@ class ProjectCreate extends Component {
                         
                         <Form.Group className="mb-3" controlId="formBasicPassword">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="5" placeholder="Enter Project Description" />
+                            <Form.Control onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="3" placeholder="Enter Project Description" />
                             <Form.Text className="text-danger">{this.handleError('description')}</Form.Text>
                         </Form.Group>
                         

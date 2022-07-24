@@ -4,9 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Project;
 use App\Interfaces\ProjectInterface;
-use PhpParser\Node\Stmt\TryCatch;
 use Validator;
 
 class ProjectController extends Controller
@@ -97,8 +95,14 @@ class ProjectController extends Controller
             ]);
         }
 
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'status' => $request->status
+        ];
+
         try {
-            $project = $this->projectRepository->edit($request, $id);
+            $project = $this->projectRepository->edit($data, $id);
             if($project){
                 return response()->json([
                     'success' => true,
@@ -116,13 +120,26 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
-        $response = $this->projectRepository->delete($id);
+        $project = $this->projectRepository->findById($id);
 
-        if($response){
+        if(is_null($project)){
             return response()->json([
-                'success' => true,
-                'message' => 'Project deleted successfully',
-            ]);    
-        }
+                'success' => false,
+                'message' => 'Project is not found!',
+            ]); 
+        }else{
+            $project->tasks()->delete();
+            $response = $this->projectRepository->delete($id);
+            if($response){
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Project deleted successfully',
+                ]);    
+            }
+            return response()->json([
+                'message' => 'Something went wrong!',
+                'status' => false
+            ]);
+        } 
     }
 }
