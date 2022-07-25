@@ -98,7 +98,7 @@ class ProjectController extends Controller
         $data = [
             'name' => $request->name,
             'description' => $request->description,
-            'status' => $request->status
+            'status' => 0
         ];
 
         try {

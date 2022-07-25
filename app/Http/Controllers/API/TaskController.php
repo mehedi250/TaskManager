@@ -18,34 +18,12 @@ class TaskController extends Controller
 
     public function index()
     {
-        // $projects = $this->taskRepository->getAll();
 
-        // if($projects){
-        //     return response()->json([
-        //         'success' => true,
-        //         'message' => 'Project list',
-        //         'data' => $projects
-        //     ]);    
-        // }
     }
 
     public function show($id)
     {
-        // $project = $this->taskRepository->findById($id);
 
-        // if(is_null($project)){
-        //     return response()->json([
-        //         'success' => false,
-        //         'message' => 'Project details is not found!',
-        //         'data' => null
-        //     ]); 
-        // }
-        
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => 'Project details',
-        //     'data' => $project
-        // ]);
     }
 
     public function store(Request $request)
@@ -62,8 +40,15 @@ class TaskController extends Controller
             ]);
         }
 
+        $data = [
+            'name' => $request->name,
+            'description' => $request->description,
+            'status' => 0,
+            'project_id' => $request->project_id
+        ];
+
         try {
-            $task = $this->taskRepository->create($request->all());
+            $task = $this->taskRepository->create($data);
             if($task){
                 return response()->json([
                     'success' => true,
@@ -81,21 +66,8 @@ class TaskController extends Controller
 
     public function update($id, Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'bail|required|max:255',
-            'description' => 'bail|required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'success' => false,
-                'errors' => $validator->errors(),
-                'status' => 'validation-error'
-            ]);
-        }
-
         try {
-            $project = $this->taskRepository->edit($request, $id);
+            $project = $this->taskRepository->edit($request->all(), $id);
             if($project){
                 return response()->json([
                     'success' => true,

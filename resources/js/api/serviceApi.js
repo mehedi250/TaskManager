@@ -23,3 +23,11 @@ export const deleteProjectApi = async (id) => {
 export const createTaskApi = async (payload) => {
     return sendRequest("post", baseUrl+'tasks', payload);
 }
+
+export const deleteTaskApi = async (id) => {
+    return sendRequest("delete", baseUrl+`tasks/${id}`, []);
+}
+
+export const updateTaskApi = async (id, payload) => {
+    return sendRequest("put", baseUrl+`tasks/${id}`, payload);
+}
