@@ -2,9 +2,13 @@ import React, { Component } from 'react'
 import { Badge, Button, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-import { getProjectApi } from '../../../api/serviceApi';
+import { deleteTaskApi, getProjectApi, updateTaskApi } from '../../../api/serviceApi';
 import TaskCreate from './task/TaskCreate';
 import ProjectEdit from './ProjectEdit';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Swal from "sweetalert2"; 
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { NotificationManager } from 'react-notifications';
 
 function withRouter(Component) {
   function ComponentWithRouter(props) {
@@ -48,6 +52,62 @@ class ProjectView extends Component {
     handleTaskComplete=(data)=>{
         this.setState({taskList: [...this.state.taskList, data]});
     }
+
+    removeListItem =(removeIndex)=>{
+        return this.state.taskList.filter((value, index) => index !== removeIndex);
+    }
+
+    handleTaskDelete = (id, removeIndex)=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                this.setState({isLoading: true});
+                deleteTaskApi(id).then((response) => {
+                    if(response.data.success){
+                        Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500})
+                        const newProjectList = this.removeListItem(removeIndex);
+                        this.setState({taskList: newProjectList});
+                        this.setState({isLoading: false});
+                    }else{
+                        this.setState({isLoading: false});
+                        NotificationManager.error(response.data.message, 'Error!');
+                    }
+                    
+                })
+                .catch(error=>{
+                    this.setState({isLoading: false});
+                    console.log("LandingPop", error)
+                }); 
+            }
+        })
+    }
+
+    handleTaskStatusUpdate=(id, status)=>{
+        this.setState({isLoading: true});
+        const postData = {status: status}
+        
+        updateTaskApi(id, postData).then((response) => {
+            if(response.data.success){
+                Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500});
+                this.getProject();
+            }
+            else{
+                NotificationManager.error(response.data.message, 'Error!');
+            }
+            this.setState({isLoading: false});
+        })
+        .catch(error=>{
+            this.setState({isLoading: false});
+            console.log("LandingPop", error)
+        });
+    }
     render() {
    
         return (
@@ -72,7 +132,7 @@ class ProjectView extends Component {
                         </button>
                         <button className='btn btn-success ml-2' onClick={()=>this.setState({editStatus: !this.state.editStatus})}>{!this.state.editStatus?'Edit':'Cancel Edit'}</button>
                         {/* <Link className="btn btn-info text-white ml-2" to="/projects">Back</Link> */}
-                        <button className="btn btn-info text-white ml-2" onClick={this.handleCreateTask} >+ Create New Task</button>
+                        <button className="btn btn-info text-white ml-2" onClick={this.handleCreateTask} >+ Add Task</button>
                     </div>
                 </div>
             </div>
@@ -88,30 +148,28 @@ class ProjectView extends Component {
             </div>
             }
 
-            {/* {!this.state.isLoading && 
-            <div className="col-12">
-                <p>{this.state.project.description}</p>
-            </div>
-            }
-        */}
-
             {!this.state.isLoading && 
             this.state.taskList.map((task, index)=>(
-                <div className="col-md-6 py-2" key={index}>
-                    <Card>
-                        <Card.Header>
-                            {task.name} 
-                        </Card.Header>
+                <div className="col-12 py-2" key={index}>
+                    <Card className='task-card'>
                         <Card.Body>
-                            <Card.Text>
-                                {task.description}
-                            </Card.Text>
-                            <Link to={`/tasks/${task.id}`}>
-                                <Button variant='primary' className='mr-2'>View</Button>
-                            </Link>
-                            
-                            <Button variant='success' className='mr-2'>Edit</Button>
-                            <Button variant='danger' className='mr-2'>Delete</Button>
+                            <div className="row">
+                                <div className="col-md-7">
+                                    <h5 className={`text-${(task.status===1)?"success":""}`}>{task.name} </h5>
+                                    <Card.Text>
+                                        {task.description}
+                                    </Card.Text>
+                                </div>
+                                <div className="col-md-5 text-right">
+                                    {(task.status===0)?
+                                        <Button variant='outline-success' className='mr-2 btn-sm' onClick={()=>this.handleTaskStatusUpdate(task.id, !task.status)}>✓ Mark as Completed</Button>
+                                    :
+                                        <Button variant='outline-info' className='mr-2 btn-sm' onClick={()=>this.handleTaskStatusUpdate(task.id, !task.status)}>Mark as Pending</Button>
+                                    }
+                                    
+                                    <Button variant='outline-danger' className='mr-2 btn-sm' onClick={()=>this.handleTaskDelete(task.id, index)}><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
+                                </div>
+                            </div>
                         </Card.Body>
                     </Card>
                 </div>

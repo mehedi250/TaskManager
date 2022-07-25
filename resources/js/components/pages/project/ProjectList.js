@@ -5,7 +5,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from "sweetalert2"; 
 import { deleteProjectApi, getProjectListApi } from '../../../api/serviceApi';
 
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faCheckDouble } from "@fortawesome/free-solid-svg-icons";
+import { NotificationManager } from 'react-notifications';
 
 
 export default class ProjectList extends Component {
@@ -33,17 +34,43 @@ export default class ProjectList extends Component {
         return this.state.projectList.filter((value, index) => index !== removeIndex);
     }
 
-    handleDelete=(id, removeIndex)=>{
-        this.setState({isLoading: true});
-        deleteProjectApi(id).then((response) => {
-            Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500})
-            const newProjectList = this.removeListItem(removeIndex);
-            this.setState({projectList: newProjectList, isLoading: false});
+    deletetItemConformtion=()=>{
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+              return true;
+            }
+            return false;
         })
-        .catch(error=>{
-            this.setState({isLoading: false});
-            console.log("LandingPop", error)
-        }); 
+    }
+
+    handleDelete=(id, removeIndex)=>{
+        if(this.deletetItemConformtion()){
+            this.setState({isLoading: true});
+            deleteProjectApi(id).then((response) => {
+                if(response.data.success){
+                    Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500})
+                    const newProjectList = this.removeListItem(removeIndex);
+                    this.setState({projectList: newProjectList});
+                    this.setState({isLoading: false});
+                }else{
+                    this.setState({isLoading: false});
+                    NotificationManager.error(response.data.message, 'Error!');
+                }
+                
+            })
+            .catch(error=>{
+                this.setState({isLoading: false});
+                console.log("LandingPop", error)
+            });    
+        }
     }
     render() {
         return (
@@ -74,6 +101,7 @@ export default class ProjectList extends Component {
                     <Card>
                         <Card.Header>
                             {project.name} <Badge className='text-white' variant="primary">{project.tasks_count}</Badge>
+                            {(project.status===1) &&  <span className='float-right text-success'><FontAwesomeIcon  icon={faCheckDouble} /></span>}
                         </Card.Header>
                         <Card.Body>
                             <Card.Text>

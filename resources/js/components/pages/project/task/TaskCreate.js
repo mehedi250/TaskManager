@@ -93,7 +93,7 @@ class TaskCreate extends Component {
                     </Button>
                     :
                     <Button variant="primary" type="submit">
-                        Submit
+                        Add Task
                     </Button>
                     }
                     
