@@ -45,6 +45,47 @@ class ProjectView extends Component {
         });
     }
 
+    renderTaskList(){
+        let view = [];
+        this.state.taskList.map((task, index)=>{
+            view.push(
+                <div className="col-12 py-2" key={index}>
+                    <Card className='task-card'>
+                        <Card.Body>
+                            <div className="row">
+                                <div className="col-md-7">
+                                    <h5 className={`text-${(task.status===1)?"success text-decoration-line-through":""}`}>{task.name} </h5>
+                                    <Card.Text>
+                                        {task.description}
+                                    </Card.Text>
+                                </div>
+                                <div className="col-md-5 text-right">
+                                    {(task.status===0)?
+                                        <Button variant='outline-success' className='mr-2 btn-sm' onClick={()=>this.handleTaskStatusUpdate(task.id, !task.status)}>✓ Mark as Completed</Button>
+                                    :
+                                        <Button variant='outline-info' className='mr-2 btn-sm' onClick={()=>this.handleTaskStatusUpdate(task.id, !task.status)}>Mark as Pending</Button>
+                                    }
+                                    
+                                    <Button variant='outline-danger' className='mr-2 btn-sm' onClick={()=>this.handleTaskDelete(task.id, index)}><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
+                                </div>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </div>
+            )
+        })
+        if(view.length === 0){
+            return(
+                <div className='col-md-7 mx-auto p-4'>
+                    <div className="text-center p-4 ">
+                        No task created yet ! 
+                    </div>
+                </div>
+            )
+        }
+        return view;
+    }
+
     handleCreateTask=(value=true)=>{
         this.setState({isCreateTask: value});
     }
@@ -148,32 +189,8 @@ class ProjectView extends Component {
             </div>
             }
 
-            {!this.state.isLoading && 
-            this.state.taskList.map((task, index)=>(
-                <div className="col-12 py-2" key={index}>
-                    <Card className='task-card'>
-                        <Card.Body>
-                            <div className="row">
-                                <div className="col-md-7">
-                                    <h5 className={`text-${(task.status===1)?"success":""}`}>{task.name} </h5>
-                                    <Card.Text>
-                                        {task.description}
-                                    </Card.Text>
-                                </div>
-                                <div className="col-md-5 text-right">
-                                    {(task.status===0)?
-                                        <Button variant='outline-success' className='mr-2 btn-sm' onClick={()=>this.handleTaskStatusUpdate(task.id, !task.status)}>✓ Mark as Completed</Button>
-                                    :
-                                        <Button variant='outline-info' className='mr-2 btn-sm' onClick={()=>this.handleTaskStatusUpdate(task.id, !task.status)}>Mark as Pending</Button>
-                                    }
-                                    
-                                    <Button variant='outline-danger' className='mr-2 btn-sm' onClick={()=>this.handleTaskDelete(task.id, index)}><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
-                                </div>
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </div>
-            ))}
+            {!this.state.isLoading && this.renderTaskList() }
+
             </div>
             {this.state.isCreateTask && 
                 <TaskCreate project={this.state.project} handleCreateTask={this.handleCreateTask} handleTaskComplete={this.handleTaskComplete} />
