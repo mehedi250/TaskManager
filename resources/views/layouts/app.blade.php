@@ -9,6 +9,8 @@
 
     <title>{{ config('app.name', 'TASK MANAGER') }}</title>
 
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/images/favicon.png')}}">
+
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 
