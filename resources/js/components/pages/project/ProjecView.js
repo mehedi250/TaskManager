@@ -54,9 +54,9 @@ class ProjectView extends Component {
                         <Card.Body>
                             <div className="row">
                                 <div className="col-md-7">
-                                    <h5 className={`text-${(task.status===1)?"success text-decoration-line-through":""}`}>{task.name} </h5>
+                                    <strong className={`text-${(task.status===1)?"success text-decoration-line-through":""}`}>{task.name} </strong>
                                     <Card.Text>
-                                        {task.description}
+                                        <small className='text-muted'>{task.description}</small>
                                     </Card.Text>
                                 </div>
                                 <div className="col-md-5 text-right">
