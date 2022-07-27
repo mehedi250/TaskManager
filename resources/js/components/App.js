@@ -34,9 +34,6 @@ class App extends Component {
                         <Route path="/projects/" >
                             <Route path="" element={<ProjectList />} />
                             <Route path=":id" element={<ProjectView />} />
-                            <Route path="create" element={<ProjectCreate />} />
-                            <Route path="edit/:id" element={<ProjectCreate />} />
-
                         </Route>
                     </Routes>
                     
