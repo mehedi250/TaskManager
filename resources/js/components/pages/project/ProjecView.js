@@ -136,7 +136,8 @@ class ProjectView extends Component {
         
         updateTaskApi(id, postData).then((response) => {
             if(response.data.success){
-                Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500});
+                NotificationManager.success(response.data.message, 'Success');
+                // Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500});
                 this.getProject();
             }
             else{

@@ -45,8 +45,9 @@ export default class ProjectList extends Component {
                 <div className="col-md-6 py-2" key={index}>
                     <Card>
                         <Card.Header>
-                            {project.name} <Badge className='text-white' variant="primary">{project.tasks_count}</Badge>
-                            {(project.status===1) &&  <span className='float-right text-success'><FontAwesomeIcon  icon={faCheckDouble} /></span>}
+                            <strong>{project.name}</strong> {" "} <Badge className='text-white' variant="primary">{project.tasks_count}</Badge>
+                            {(project.status) &&  <span className='float-right text-success'><FontAwesomeIcon  icon={faCheckDouble} /></span>}
+                            
                         </Card.Header>
                         <Card.Body>
                             <Card.Text>

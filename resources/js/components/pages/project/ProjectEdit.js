@@ -31,7 +31,7 @@ class ProjectEdit extends Component {
     handleSubmit = async (e)=>{
         e.preventDefault();
         this.setState({isLoading: true, errors: []});
-        const postData = {name: this.state.name, description: this.state.description, status: this.state.status, user_id: 1}
+        const postData = {name: this.state.name, description: this.state.description, status: parseInt(this.state.status), user_id: 1}
         
         updateProjectApi(this.props.project.id, postData).then((response) => {
             if(response.data.success){
