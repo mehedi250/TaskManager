@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from "sweetalert2"; 
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { NotificationManager } from 'react-notifications';
+import TaskCard from './task/TaskCard';
 
 function withRouter(Component) {
   function ComponentWithRouter(props) {
@@ -49,29 +50,7 @@ class ProjectView extends Component {
         let view = [];
         this.state.taskList.map((task, index)=>{
             view.push(
-                <div className="col-12 py-2" key={index}>
-                    <Card className='task-card'>
-                        <Card.Body>
-                            <div className="row">
-                                <div className="col-md-7">
-                                    <strong className={`text-${(task.status===1)?"success text-decoration-line-through":""}`}>{task.name} </strong>
-                                    <Card.Text>
-                                        <small className='text-muted'>{task.description}</small>
-                                    </Card.Text>
-                                </div>
-                                <div className="col-md-5 text-right">
-                                    {(task.status===0)?
-                                        <Button variant='outline-success' className='mr-2 btn-sm' onClick={()=>this.handleTaskStatusUpdate(task.id, !task.status)}>✓ Mark as Completed</Button>
-                                    :
-                                        <Button variant='outline-info' className='mr-2 btn-sm' onClick={()=>this.handleTaskStatusUpdate(task.id, !task.status)}>Mark as Pending</Button>
-                                    }
-                                    
-                                    <Button variant='outline-danger' className='mr-2 btn-sm' onClick={()=>this.handleTaskDelete(task.id, index)}><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
-                                </div>
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </div>
+                <TaskCard key={index} index={index} task={task} handleTaskDelete={this.handleTaskDelete}  />
             )
         })
         if(view.length === 0){
@@ -99,57 +78,13 @@ class ProjectView extends Component {
     }
 
     handleTaskDelete = (id, removeIndex)=>{
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                this.setState({isLoading: true});
-                deleteTaskApi(id).then((response) => {
-                    if(response.data.success){
-                        Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500})
-                        const newProjectList = this.removeListItem(removeIndex);
-                        this.setState({taskList: newProjectList});
-                        this.setState({isLoading: false});
-                    }else{
-                        this.setState({isLoading: false});
-                        NotificationManager.error(response.data.message, 'Error!');
-                    }
-                    
-                })
-                .catch(error=>{
-                    this.setState({isLoading: false});
-                    console.log("LandingPop", error)
-                }); 
-            }
-        })
+        const newProjectList = this.removeListItem(removeIndex);
+        this.setState({taskList: newProjectList});    
     }
 
-    handleTaskStatusUpdate=(id, status)=>{
-        this.setState({isLoading: true});
-        const postData = {status: status}
-        
-        updateTaskApi(id, postData).then((response) => {
-            if(response.data.success){
-                NotificationManager.success(response.data.message, 'Success');
-                // Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500});
-                this.getProject();
-            }
-            else{
-                NotificationManager.error(response.data.message, 'Error!');
-            }
-            this.setState({isLoading: false});
-        })
-        .catch(error=>{
-            this.setState({isLoading: false});
-            console.log("LandingPop", error)
-        });
-    }
+    // handleTaskStatusUpdate=()=>{
+    //     this.getProject();
+    // }
     render() {
    
         return (
@@ -157,9 +92,7 @@ class ProjectView extends Component {
             <div className="header-part">
                 <div className="row">
                     <div className="col-md-7">
-                        {this.state.editStatus &&
-                            <ProjectEdit  project={this.state.project} getProject={this.getProject} />
-                        }
+                        {this.state.editStatus && <ProjectEdit  project={this.state.project} getProject={this.getProject} />}
                         {!this.state.isLoading && !this.state.editStatus &&
                             <>
                                 <h2>{this.state.project.name}  <Badge className='text-white' variant="primary">{this.state.taskList.length}</Badge></h2>
@@ -182,16 +115,15 @@ class ProjectView extends Component {
             <hr />
 
             <div className="row">
-            {this.state.isLoading && 
-            <div className="text-center w-100 py-4">
-                <Spinner animation="border" role="status">
-                    <span className="visually-hidden"></span>
-                </Spinner>    
-            </div>
-            }
+                {this.state.isLoading && 
+                <div className="text-center w-100 py-4">
+                    <Spinner animation="border" role="status">
+                        <span className="visually-hidden"></span>
+                    </Spinner>    
+                </div>
+                }
 
-            {!this.state.isLoading && this.renderTaskList() }
-
+                {!this.state.isLoading && this.renderTaskList() }
             </div>
             {this.state.isCreateTask && 
                 <TaskCreate project={this.state.project} handleCreateTask={this.handleCreateTask} handleTaskComplete={this.handleTaskComplete} />
