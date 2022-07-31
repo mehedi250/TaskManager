@@ -22,7 +22,8 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <script>
-        var baseUrl = '{{env('REACT_APP_API_URL')}}'
+        var baseUrl = '{{env('REACT_APP_API_URL')}}';
+        var appUrl = '{{env('APP_URL')}}'
     </script>
 </head>
 
