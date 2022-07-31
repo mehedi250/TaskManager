@@ -71,7 +71,7 @@ export default class TaskCard extends Component {
     render() {
         return (
         <div className="col-12 my-2">   
-            <Card className='task-card'  style={{boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1)", backgroundImage: "linear-gradient(#f2f5ff, #ffffff, #f2f5ff)" }}>
+            <Card className='task-card'>
                 <Card.Body>
                     <div className="row">
                         <div className="col-md-7">
