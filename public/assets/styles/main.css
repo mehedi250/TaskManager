@@ -6,5 +6,10 @@
 
 .task-card{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1);
-    background-image: linear-gradient(#f2f5ff, #ffffff, #f2f5ff);
+    background-image: linear-gradient(#f2f5ff, #fff7f6, #f2f5ff);
+}
+
+.task-card.completed{
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(#f2f5ff, #f6fff6, #f2f5ff);
 }

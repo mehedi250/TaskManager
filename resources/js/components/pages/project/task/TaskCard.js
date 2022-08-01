@@ -71,7 +71,7 @@ export default class TaskCard extends Component {
     render() {
         return (
         <div className="col-12 my-2">   
-            <Card className='task-card'>
+            <Card className={`task-card ${(this.state.status===1)?"completed":""}`}>
                 <Card.Body>
                     <div className="row">
                         <div className="col-md-7">
