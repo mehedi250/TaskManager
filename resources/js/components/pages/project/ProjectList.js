@@ -9,7 +9,6 @@ import { faTrash, faCheckDouble } from "@fortawesome/free-solid-svg-icons";
 import { NotificationManager } from 'react-notifications';
 import ProjectCreate from './ProjectCreate';
 
-
 export default class ProjectList extends Component {
     constructor(props){
         super(props);
@@ -18,10 +17,10 @@ export default class ProjectList extends Component {
             isLoading: true,
             isCreateProject: false,
             search: "",
-            projectList: []
+            projectList: [],
+            searchProjectList: []
         };    
     }
-    
 
     componentDidMount(){
         this.getProjectList();
@@ -38,9 +37,9 @@ export default class ProjectList extends Component {
         });
     }
 
-    renderProjectList(){
-        let view = [];
-        this.state.projectList.map((project, index)=>{
+    renderSearch=(results)=>{
+        let view=[];
+        results.map((project, index)=>{
             view.push(
                 <div className="col-md-6 py-2" key={index}>
                     <Card>
@@ -66,7 +65,7 @@ export default class ProjectList extends Component {
             return(
                 <div className='col-md-7 mx-auto p-4'>
                     <div className="text-center p-4 ">
-                        No project created yet ! 
+                        {(this.state.search !== '')?"No result found !":"No project created yet !"}
                     </div>
                 </div>
             )
@@ -74,25 +73,22 @@ export default class ProjectList extends Component {
         return view;
     }
 
-    removeListItem =(removeIndex)=>{
-        return this.state.projectList.filter((value, index) => index !== removeIndex);
+    renderProjectList(){
+        if(this.state.search !== ''){
+            const results = this.state.projectList.filter((project) => {
+                const mainText = project.name.toLowerCase();
+                const searchText = this.state.search.trim().toLowerCase();
+                return mainText.indexOf(searchText)!==-1;
+            });
+            return this.renderSearch(results);
+        }
+        else{
+            return this.renderSearch(this.state.projectList);
+        }
     }
 
-    deletetItemConformtion=()=>{
-        Swal.fire({
-            title: 'Are you sure?',
-            text: "You won't be able to revert this!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, delete it!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-              return true;
-            }
-            return false;
-        })
+    removeListItem =(removeIndex)=>{
+        return this.state.projectList.filter((value, index) => index !== removeIndex);
     }
 
     handleDelete=(id, removeIndex)=>{
@@ -106,21 +102,16 @@ export default class ProjectList extends Component {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                this.setState({isLoading: true});
                 deleteProjectApi(id).then((response) => {
                     if(response.data.success){
                         Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500})
                         const newProjectList = this.removeListItem(removeIndex);
                         this.setState({projectList: newProjectList});
-                        this.setState({isLoading: false});
                     }else{
-                        this.setState({isLoading: false});
                         NotificationManager.error(response.data.message, 'Error!');
                     }
-                    
                 })
                 .catch(error=>{
-                    this.setState({isLoading: false});
                     console.log("LandingPop", error)
                 }); 
             }
@@ -136,12 +127,7 @@ export default class ProjectList extends Component {
     }
 
     handleSearch=(e)=>{
-        const search = e.target.value;
-        this.setState({search: search})
-        if(this.timeout) clearTimeout(this.timeout);
-        this.timeout = setTimeout(() => {
-          console.log(search)
-        }, 800);
+        this.setState({search: e.target.value});
     }
 
     render() {
@@ -152,7 +138,7 @@ export default class ProjectList extends Component {
                     <h2>Projects <Badge className='text-white' variant="primary">{this.state.projectList.length}</Badge></h2>
                 </div>
                 <div className="float-right d-flex">
-                    <Form.Control  onChange={this.handleSearch} value={this.state.search} type="text" placeholder="Search Project" />
+                    <Form.Control className='shadow-none' onChange={this.handleSearch} value={this.state.search} type="text" placeholder="Search Project" />
                     <div className='text-right' style={{width: "210px"}}>
                         <button style={{display:"inline"}} className="btn btn-info text-white" onClick={this.handleCreateProject}>+ Create New</button>
                     </div>
