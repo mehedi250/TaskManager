@@ -41,23 +41,25 @@ export default class ProjectList extends Component {
         let view=[];
         results.map((project, index)=>{
             view.push(
-                <div className="col-md-6 py-2" key={index}>
-                    <Card>
-                        <Card.Header style={{background: "#fff"}}>
+                <div className="col-md-6 col-lg-4 py-2" key={index}>
+                    <div className={`project-card dealwrapper ${(project.status===1)?"purple":"red"} py-4`}>
+                        <div class="ribbon-wrapper">
+                            <div class="ribbon-tag">{(project.status===1)?"Completed":"Incomplete"}</div>
+                        </div>
+                        <div className="card-title px-4">
                             <strong>{project.name}</strong> {" "} <Badge className='text-white' variant="primary">{project.tasks_count}</Badge>
-                            {(project.status===1) &&  <span className='float-right text-success'><FontAwesomeIcon  icon={faCheckDouble} /></span>}
-                            
-                        </Card.Header>
-                        <Card.Body>
-                            <Card.Text>
-                                {project.description}
-                            </Card.Text>
+                        </div>
+                        <div className="card-content px-4">
+                            <p>{project.description}</p>
+                        </div>
+                        <div className="card-action-hidden text-center py-3">
                             <Link to={`/projects/${project.id}`}>
                                 <Button variant='primary' className='mr-2 btn-sm'>View & Edit</Button>
                             </Link>
                             <Button variant='danger' onClick={()=>this.handleDelete(project.id, index)} className='btn-sm'><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
-                        </Card.Body>
-                    </Card>
+                        </div>
+                    </div>
+              
                 </div>
             )
         })
