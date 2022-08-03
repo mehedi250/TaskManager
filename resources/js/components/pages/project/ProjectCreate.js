@@ -65,21 +65,23 @@ class ProjectCreate extends Component {
         <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header>
                 <Modal.Title>Create New Project
-                    <div></div>
                 </Modal.Title>
                 <button className='btn btn-outline-info btn-sm' onClick={this.handleClose}>x</button>
             </Modal.Header>
             <Modal.Body>
+                <div className="text-center">
+                    <img className='modal-logo' src={`${appUrl}assets/images/favicon.png`} alt="" />
+                </div>
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Project Name <span className="text-danger">*</span></Form.Label>
-                        <Form.Control onChange={this.handleName} value={this.state.name} type="text" placeholder="Enter Project Name" />
+                        <Form.Control className='shadow-none border-primary' onChange={this.handleName} value={this.state.name} type="text" placeholder="Enter Project Name" />
                         <Form.Text className="text-danger">{this.handleError('name')}</Form.Text>
                     </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Description <span className="text-danger">*</span></Form.Label>
-                        <Form.Control onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="3" placeholder="Enter Project Description" />
+                        <Form.Control className='shadow-none border-primary' onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="3" placeholder="Enter Project Description" />
                         <Form.Text className="text-danger">{this.handleError('description')}</Form.Text>
                     </Form.Group>
                     

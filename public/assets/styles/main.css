@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 
+/* font-family: 'Archivo', sans-serif;
+font-family: 'Lobster', cursive;
+font-family: 'Lobster Two', cursive;
+font-family: 'Teko', sans-serif; */
+
+html, body{
+    font-family: 'Archivo', sans-serif;
+}
 .task-card{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1), 0 6px 10px 0 rgba(0, 0, 0, 0.1);
     background-image: linear-gradient(#f2f5ff, #fff7f6, #f2f5ff);
@@ -29,6 +37,9 @@
 .project-card .card-content{
     height: 70px;
     overflow: auto;
+    font-family: 'Lobster Two', cursive;
+    color: #3a3a3a;
+    font-weight: 400;
 }
 .card-action-hidden{
     position: absolute;
@@ -37,7 +48,7 @@
     background-color: rgba(0, 0, 0, 0.445);
     transition: 0.4s;
     visibility: hidden;
-    bottom: -20%; 
+    bottom: -10%; 
 }
 .project-card:hover .card-action-hidden{
     bottom: 0%; 
@@ -82,3 +93,35 @@
     background: linear-gradient(to bottom, rgba(248,80,50,1) 0%, rgba(241,111,92,1) 50%, rgba(246,41,12,1) 51%, rgba(240,47,23,1) 71%, rgba(231,56,39,1) 100%);
     filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f85032', endColorstr='#e73827', GradientType=0 );
 }
+
+.common-search-box{
+    box-shadow: rgb(69 65 78 / 20%) 0px 0px 15px 1px!important;
+}
+.shadow-btn{
+    box-shadow: 0 1px 10px 0 rgb(0 0 0 / 40%);
+    transition: 0.4s;
+}
+.shadow-btn:hover{
+    margin-top: -4px;
+    transition: 0.4s;
+}
+.head-title-shadow{
+    color: midnightblue;
+    font-weight: 800;
+    font-size: 34px;
+    text-shadow: 3px 3px 3px #ce5a37;
+    font-family: 'Teko', sans-serif;
+}
+
+
+@keyframes rotation-360 {
+    0%   {transform: rotate(0deg);}
+    100%   {transform: rotate(360deg);}
+}
+
+.modal-logo{
+    border-radius: 50%;
+    height: 55px;
+    animation: rotation-360 .7s linear 2;
+}
+

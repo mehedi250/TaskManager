@@ -42,7 +42,7 @@ export default class ProjectList extends Component {
         results.map((project, index)=>{
             view.push(
                 <div className="col-md-6 col-lg-4 py-2" key={index}>
-                    <div className={`project-card dealwrapper ${(project.status===1)?"purple":"red"} py-4`}>
+                    <div className={`project-card  dealwrapper ${(project.status===1)?"purple":"red"} py-4`}>
                         <div class="ribbon-wrapper">
                             <div class="ribbon-tag">{(project.status===1)?"Completed":"Incomplete"}</div>
                         </div>
@@ -136,13 +136,15 @@ export default class ProjectList extends Component {
         return (
             <>
             <div className="header-part">
-                <div className="float-left">
-                    <h2>Projects <Badge className='text-white' variant="primary">{this.state.projectList.length}</Badge></h2>
+                <div className="float-left d-flex">
+                    <h2 className='head-title-shadow'>Projects </h2>
+                    <h2> <Badge className='text-white ml-2' variant="primary">{this.state.projectList.length}</Badge></h2>
+                    
                 </div>
                 <div className="float-right d-flex">
-                    <Form.Control className='shadow-none' onChange={this.handleSearch} value={this.state.search} type="text" placeholder="Search Project" />
+                    <Form.Control className='shadow-none border-primary common-search-box' onChange={this.handleSearch} value={this.state.search} type="text" placeholder="Search Project" />
                     <div className='text-right' style={{width: "210px"}}>
-                        <button style={{display:"inline"}} className="btn btn-info text-white" onClick={this.handleCreateProject}>+ Create New</button>
+                        <button style={{display:"inline"}} className="btn btn-info text-white shadow-btn" onClick={this.handleCreateProject}>+ Create New</button>
                     </div>
                     
                 </div>
