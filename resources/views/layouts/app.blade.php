@@ -23,6 +23,12 @@
     
     <link href="{{ asset('assets/styles/main.css') }}" rel="stylesheet">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;700;800&family=Lobster&family=Lobster+Two&family=Teko:wght@400;700&display=swap" rel="stylesheet">
+    
+
 
     <script>
         var baseUrl = '{{env('REACT_APP_API_URL')}}';

@@ -72,7 +72,7 @@ class TaskCreate extends Component {
                 <button className='btn btn-outline-info btn-sm' onClick={this.handleClose}>x</button>
             </Modal.Header>
             <Modal.Body>
-            <small><em>Project: {this.props.project.name}</em></small>
+            {/* <small><em>Project: {this.props.project.name}</em></small> */}
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Task Name <span className="text-danger">*</span></Form.Label>

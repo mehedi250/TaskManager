@@ -95,8 +95,11 @@ class ProjectView extends Component {
                         {this.state.editStatus && <ProjectEdit  project={this.state.project} getProject={this.getProject} />}
                         {!this.state.isLoading && !this.state.editStatus &&
                             <>
-                                <h2>{this.state.project.name}  <Badge className='text-white' variant="primary">{this.state.taskList.length}</Badge></h2>
-                                <p>{this.state.project.description}</p>
+                            <div className="d-flex">
+                                <h2 className='head-title-shadow'>{this.state.project.name}</h2>
+                                <h2><Badge className='text-white ml-2' variant="primary">{this.state.taskList.length}</Badge></h2>
+                            </div>
+                            <p>{this.state.project.description}</p>
                             </>
                         }
                         
