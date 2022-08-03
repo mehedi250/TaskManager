@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Badge, Button, Card, Form, Spinner } from 'react-bootstrap';
+import { Badge, Button, Form, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from "sweetalert2"; 
 import { deleteProjectApi, getProjectListApi } from '../../../api/serviceApi';
 
-import { faTrash, faCheckDouble } from "@fortawesome/free-solid-svg-icons";
+import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { NotificationManager } from 'react-notifications';
 import ProjectCreate from './ProjectCreate';
 
