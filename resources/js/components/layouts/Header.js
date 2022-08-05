@@ -24,11 +24,14 @@ const Header = () => {
             </Link>
           </Nav>
           <Nav className="ml-auto">
-            <Link className='btn btn-outline-success mx-1' to="/Login">
+            <Link className='btn btn-outline-success mx-1' to="/login">
               <Nav.Item className='text-white'>Login</Nav.Item>
             </Link>
-            <Link className='btn btn-outline-primary mx-1' to="/Login">
+            <Link className='btn btn-outline-primary mx-1' to="/register">
               <Nav.Item className='text-white'>Register</Nav.Item>
+            </Link>
+            <Link className='btn btn-outline-light mx-1' to="/register">
+              <Nav.Item className='text-white'>Logout</Nav.Item>
             </Link>
           </Nav>
         </Navbar.Collapse>

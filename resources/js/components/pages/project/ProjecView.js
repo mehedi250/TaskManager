@@ -3,13 +3,13 @@ import { Badge, Button, Card, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
 import { deleteTaskApi, getProjectApi, updateTaskApi } from '../../../api/serviceApi';
-import TaskCreate from './task/TaskCreate';
+import TaskCreate from '../task/TaskCreate';
 import ProjectEdit from './ProjectEdit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from "sweetalert2"; 
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 import { NotificationManager } from 'react-notifications';
-import TaskCard from './task/TaskCard';
+import TaskCard from '../task/TaskCard';
 
 function withRouter(Component) {
   function ComponentWithRouter(props) {
@@ -108,9 +108,9 @@ class ProjectView extends Component {
                         <button className={`btn btn-outline-${this.state.project.status ===1?'success':'info'}`} disabled>
                             {this.state.project.status ===1?'✓Completed':'Pending'}
                         </button>
-                        <button className='btn btn-success ml-2' onClick={()=>this.setState({editStatus: !this.state.editStatus})}>{!this.state.editStatus?'Edit':'Cancel Edit'}</button>
+                        <button className='btn btn-success shadow-btn ml-2' onClick={()=>this.setState({editStatus: !this.state.editStatus})}>{!this.state.editStatus?'Edit':'Cancel Edit'}</button>
                         {/* <Link className="btn btn-info text-white ml-2" to="/projects">Back</Link> */}
-                        <button className="btn btn-info text-white ml-2" onClick={this.handleCreateTask} >+ Add Task</button>
+                        <button className="btn btn-info text-white shadow-btn ml-2" onClick={this.handleCreateTask} >+ Add Task</button>
                     </div>
                 </div>
             </div>
