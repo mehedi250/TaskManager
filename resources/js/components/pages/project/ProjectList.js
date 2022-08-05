@@ -43,8 +43,8 @@ export default class ProjectList extends Component {
             view.push(
                 <div className="col-md-6 col-lg-4 py-2" key={index}>
                     <div className={`project-card  dealwrapper ${(project.status===1)?"purple":"red"} py-4`}>
-                        <div class="ribbon-wrapper">
-                            <div class="ribbon-tag">{(project.status===1)?"Completed":"Incomplete"}</div>
+                        <div className="ribbon-wrapper">
+                            <div className="ribbon-tag">{(project.status===1)?"Completed":"Incomplete"}</div>
                         </div>
                         <div className="card-title px-4">
                             <strong>{project.name}</strong> {" "} <Badge className='text-white' variant="primary">{project.tasks_count}</Badge>

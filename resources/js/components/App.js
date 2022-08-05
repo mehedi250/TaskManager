@@ -8,14 +8,14 @@ import About from './pages/About';
 import Home from './pages/Home';
 import Contact from './pages/Contact';
 import ProjectList from './pages/project/ProjectList';
-import ProjectCreate from './pages/project/ProjectCreate';
 import ProjectView from './pages/project/ProjecView';
 
 import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';
+import Register from './pages/auth/Register';
+import Login from './pages/auth/Login';
 
 class App extends Component {
-  
 
     render() {
         return (
@@ -30,6 +30,9 @@ class App extends Component {
                         <Route path="/" caseSensitive={false} element={<Home />} />
                         <Route path="/about" caseSensitive={false} element={<About />} />
                         <Route path="/contact" caseSensitive={false} element={<Contact />} />
+
+                        <Route path="/register" caseSensitive={false} element={<Register />} />
+                        <Route path="/login" caseSensitive={false} element={<Login />} />
                        
                         <Route path="/projects/" >
                             <Route path="" element={<ProjectList />} />
@@ -44,12 +47,8 @@ class App extends Component {
         </div>
         );
     }
-
-    
 }
 
-
-  
 export default App;
 
 if (document.getElementById('app')) {
