@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
 import { Badge, Button, Card, Spinner } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
 import { useParams } from "react-router-dom";
-import { deleteTaskApi, getProjectApi, updateTaskApi } from '../../../api/serviceApi';
+import { getProjectApi } from '../../../api/serviceApi';
 import TaskCreate from '../task/TaskCreate';
 import ProjectEdit from './ProjectEdit';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Swal from "sweetalert2"; 
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
-import { NotificationManager } from 'react-notifications';
 import TaskCard from '../task/TaskCard';
 
 function withRouter(Component) {
