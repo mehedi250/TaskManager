@@ -55,8 +55,8 @@ class Login extends Component {
         const postData = { email: this.state.email, password: this.state.password };
         loginApi(postData).then((response) => {
             if(response.data.success){
-                localStorage.setItem('loinData', JSON.stringify(response));
-                Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500});
+                localStorage.setItem('loginData', JSON.stringify(response));
+                Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 2000});
                 setTimeout(this.handleRedirect, 2000)
             }
             else{

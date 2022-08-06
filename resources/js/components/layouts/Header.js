@@ -1,7 +1,11 @@
 import React from 'react';
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
 import { Link } from "react-router-dom";
-const Header = () => {
+const Header = (props) => {
+  const logout = () =>{
+    localStorage.removeItem('loginData');
+    window.location.reload();
+  }
 
   return (
     <Navbar  bg="dark" variant="dark" expand="lg" sticky='top'>
@@ -23,16 +27,31 @@ const Header = () => {
               <Nav.Item className='text-white mx-3'>Contact</Nav.Item>
             </Link>
           </Nav>
+          
           <Nav className="ml-auto">
+          {!props.isLoggedIn &&
+          <>
             <Link className='btn btn-outline-success mx-1' to="/login">
               <Nav.Item className='text-white'>Login</Nav.Item>
             </Link>
             <Link className='btn btn-outline-primary mx-1' to="/register">
               <Nav.Item className='text-white'>Register</Nav.Item>
             </Link>
-            <Link className='btn btn-outline-light mx-1' to="/register">
+          </>
+          
+          }
+          {props.isLoggedIn &&
+          <>
+            <Link className='btn btn-outline-success mx-1' to="/">
+                <Nav.Item className='text-white'>{props.user.name}</Nav.Item>
+            </Link>
+
+            <Link className='btn btn-outline-light mx-1' to="/login" onClick={()=>logout()} >
               <Nav.Item className='text-white'>Logout</Nav.Item>
             </Link>
+          </>
+            
+          }
           </Nav>
         </Navbar.Collapse>
     </Container>

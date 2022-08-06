@@ -14,14 +14,27 @@ import 'react-notifications/lib/notifications.css';
 import {NotificationContainer} from 'react-notifications';
 import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
+import { checkIfAuthenticated } from '../api/authServiceApi';
+import AuthenticatedRoute from './AuthenticatedRoute';
 
 class App extends Component {
+    state = {
+        user: {},
+        isLoggedIn: false
+    }
+    componentDidMount(){
+        // console.log('auth--',checkIfAuthenticated())
+        if(checkIfAuthenticated()){
+            this.setState({user: checkIfAuthenticated(), isLoggedIn: true});
+        }
+    }
+
 
     render() {
         return (
         <div>
             <Router>
-                <Header/>
+                <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
                 <div  style={{minHeight: `calc(100vh - 110.4px)`}}>
                 <Container className='py-4'> 
                     <NotificationContainer/>
@@ -34,10 +47,11 @@ class App extends Component {
                         <Route path="/register" caseSensitive={false} element={<Register />} />
                         <Route path="/login" caseSensitive={false} element={<Login />} />
                        
-                        <Route path="/projects/" >
+                        <Route path="/projects/" element={<AuthenticatedRoute auth={this.state.isLoggedIn}/>}>
                             <Route path="" element={<ProjectList />} />
                             <Route path=":id" element={<ProjectView />} />
                         </Route>
+                        {/* <AuthenticatedRoute authed={this.state.isLoggedIn} path='/projects' component={ProjectList} /> */}
                     </Routes>
                     
                 </Container>
