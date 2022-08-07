@@ -23,7 +23,6 @@ class App extends Component {
         isLoggedIn: false
     }
     componentDidMount(){
-        // console.log('auth--',checkIfAuthenticated())
         if(checkIfAuthenticated()){
             this.setState({user: checkIfAuthenticated(), isLoggedIn: true});
         }
@@ -38,9 +37,6 @@ class App extends Component {
         }
     }
 
-
-
-
     render() {
         return (
         <div>
@@ -49,7 +45,6 @@ class App extends Component {
                 <div  style={{minHeight: `calc(100vh - 110.4px)`}}>
                 <Container className='py-4'> 
                     <NotificationContainer/>
-                   
                     <Routes>
                         <Route path="/" caseSensitive={false} element={<Home />} />
                         <Route path="/about" caseSensitive={false} element={<About />} />
@@ -64,9 +59,7 @@ class App extends Component {
                             <Route path="" element={<ProjectList />} />
                             <Route path=":id" element={<ProjectView />} />
                         </Route>
-                        {/* <AuthenticatedRoute authed={this.state.isLoggedIn} path='/projects' component={ProjectList} /> */}
                     </Routes>
-                    
                 </Container>
                 </div>
                 <Footer/>

@@ -19,9 +19,11 @@ const Header = (props) => {
             <Link to="">
               <Nav.Item className='text-white mx-3'>Home</Nav.Item>
             </Link>
+            {props.isLoggedIn &&
             <Link to="/projects">
               <Nav.Item className='text-white mx-3'>Projects</Nav.Item>
             </Link>
+            }
             <Link to="/about">
               <Nav.Item className='text-white mx-3'>About</Nav.Item>
             </Link>
