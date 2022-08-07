@@ -59,7 +59,7 @@ class Register extends Component {
     }
 
     handleRedirect=()=>{
-        this.props.router.navigate('/');
+        this.props.router.navigate('/projects');
     }
 
     handleSubmit = (e) =>{

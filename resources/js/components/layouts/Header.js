@@ -1,10 +1,12 @@
 import React from 'react';
-import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap';
-import { Link } from "react-router-dom";
+import { Container, Nav, Navbar } from 'react-bootstrap';
+import { Link, Navigate } from "react-router-dom";
 const Header = (props) => {
   const logout = () =>{
     localStorage.removeItem('loginData');
-    window.location.reload();
+    props.resetMount();
+    <Navigate to="/login" />
+    // window.location.reload();
   }
 
   return (
