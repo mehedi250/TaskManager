@@ -29,12 +29,23 @@ class App extends Component {
         }
     }
 
+    resetMount = () =>{
+        if(checkIfAuthenticated()){
+            this.setState({user: checkIfAuthenticated(), isLoggedIn: true});
+        }
+        else{
+            this.setState({user: {}, isLoggedIn: false});
+        }
+    }
+
+
+
 
     render() {
         return (
         <div>
             <Router>
-                <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} />
+                <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} resetMount={this.resetMount} />
                 <div  style={{minHeight: `calc(100vh - 110.4px)`}}>
                 <Container className='py-4'> 
                     <NotificationContainer/>
@@ -44,10 +55,12 @@ class App extends Component {
                         <Route path="/about" caseSensitive={false} element={<About />} />
                         <Route path="/contact" caseSensitive={false} element={<Contact />} />
 
-                        <Route path="/register" caseSensitive={false} element={<Register />} />
-                        <Route path="/login" caseSensitive={false} element={<Login />} />
+                        <Route path="/" element={<AuthenticatedRoute login={false}/>}>
+                            <Route path="/register" caseSensitive={false} element={<Register />} />
+                            <Route path="/login" caseSensitive={false} element={<Login mount={this.resetMount} />} />
+                        </Route>
                        
-                        <Route path="/projects/" element={<AuthenticatedRoute auth={this.state.isLoggedIn}/>}>
+                        <Route path="/projects/" element={<AuthenticatedRoute login={true} auth={this.state.isLoggedIn}/>}>
                             <Route path="" element={<ProjectList />} />
                             <Route path=":id" element={<ProjectView />} />
                         </Route>

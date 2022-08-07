@@ -46,6 +46,7 @@ class Login extends Component {
     }
 
     handleRedirect=()=>{
+        this.props.mount();
         this.props.router.navigate('/');
     }
 
