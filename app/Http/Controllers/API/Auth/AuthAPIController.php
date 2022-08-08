@@ -5,7 +5,9 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\Controller;
 use App\Interfaces\AuthInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Laravel\Passport\Token;
 use Validator;
 class AuthAPIController extends Controller
 {
@@ -31,9 +33,11 @@ class AuthAPIController extends Controller
             ]);
         }
 
-        if($this->authRepository->checkAuthenticated(['email' => $request->email, 'password' => $request->password]))
+        // if($this->authRepository->checkAuthenticated(['email' => $request->email, 'password' => $request->password]))
+        if(Auth::attempt(['email' => $request->email, 'password' => $request->password]))
         {
-            $user = $this->authRepository->getUserByEmail($request->email);
+            // $user = $this->authRepository->getUserByEmail($request->email);
+            $user = Auth::user();
             $accessToken = $user->createToken('authToken')->accessToken;
             return response()->json([
                 'success' => true,
@@ -88,4 +92,23 @@ class AuthAPIController extends Controller
             ]);
         }
     }
+
+    public function getUser()
+    {
+        $user = Auth::user();
+        if($user){
+            return response()->json([
+                'status' => 'success',
+                'user' => $user
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' => 'fail',
+                'message' => 'User not found',
+                'user' => $user
+            ]);
+        }
+    }
+
 }
