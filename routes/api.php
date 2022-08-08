@@ -24,3 +24,9 @@ Route::apiResource('tasks', 'API\TaskController');
 
 Route::post('auth/login', 'API\Auth\AuthAPIController@login');
 Route::post('auth/register', 'API\Auth\AuthAPIController@register');
+
+Route::middleware('auth:api')->group(function () {
+    Route::post('auth/user', 'API\Auth\AuthAPIController@getUser');
+    Route::apiResource('projects', 'API\ProjectController');
+    Route::apiResource('tasks', 'API\TaskController');
+});

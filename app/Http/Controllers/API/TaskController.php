@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Interfaces\TaskInterface;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class TaskController extends Controller
@@ -28,6 +29,13 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+            ]);
+        }
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|max:255'
         ]);
@@ -66,6 +74,13 @@ class TaskController extends Controller
 
     public function update($id, Request $request)
     {
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+            ]);
+        }
         try {
             $project = $this->taskRepository->edit($request->all(), $id);
             if($project){
@@ -85,6 +100,13 @@ class TaskController extends Controller
 
     public function destroy($id)
     {
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+            ]);
+        }
         $response = $this->taskRepository->delete($id);
 
         if($response){

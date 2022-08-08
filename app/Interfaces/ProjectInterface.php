@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 
 Interface ProjectInterface
 {
-    public function getAll();
+    public function getAll($userId);
 
     public function findById($id);
 

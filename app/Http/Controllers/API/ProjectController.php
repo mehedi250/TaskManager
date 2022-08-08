@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Interfaces\ProjectInterface;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 
 class ProjectController extends Controller
@@ -18,7 +19,15 @@ class ProjectController extends Controller
 
     public function index()
     {
-        $projects = $this->projectRepository->getAll();
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+                'data' => []
+            ]);
+        }
+        $projects = $this->projectRepository->getAll($user->id);
 
         if($projects){
             return response()->json([
@@ -31,6 +40,14 @@ class ProjectController extends Controller
 
     public function show($id)
     {
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+                'data' => []
+            ]);
+        }
         $project = $this->projectRepository->findById($id);
 
         if(is_null($project)){
@@ -50,6 +67,15 @@ class ProjectController extends Controller
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+                'data' => []
+            ]);
+        }
+        
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|max:255',
             'description' => 'bail|required'
@@ -82,6 +108,14 @@ class ProjectController extends Controller
 
     public function update($id, Request $request)
     {
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found',
+                'data' => []
+            ]);
+        }
         $validator = Validator::make($request->all(), [
             'name' => 'bail|required|max:255',
             'description' => 'bail|required'
@@ -120,6 +154,13 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
+        $user = Auth::user();
+        if(!$user){
+            return response()->json([
+                'success' => false,
+                'message' => 'User not found'
+            ]);
+        }
         $project = $this->projectRepository->findById($id);
 
         if(is_null($project)){

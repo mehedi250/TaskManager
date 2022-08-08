@@ -5,9 +5,9 @@ use App\Models\Project;
 
 class ProjectRepository implements ProjectInterface{
 
-    public function getAll()
+    public function getAll($userId)
     {
-        return Project::withCount('tasks')->orderBy('id', 'desc')->get();
+        return Project::where('user_id', $userId)->withCount('tasks')->orderBy('id', 'desc')->get();
     }
 
     public function findById($id)
