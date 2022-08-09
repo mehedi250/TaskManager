@@ -111,4 +111,15 @@ class AuthAPIController extends Controller
         }
     }
 
+    public function logout(Request $request)
+    {
+        $result = $request->user()->token()->revoke();                  
+        if($result){
+            $response = response()->json(['success' => true, 'message'=>'User logout successfully.']);
+        }else{
+            $response = response()->json([ 'success' => false, 'message'=>'Something is wrong.']);            
+        }   
+        return $response;   
+    }
+
 }

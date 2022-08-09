@@ -1,12 +1,28 @@
 import React from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
+import { NotificationManager } from 'react-notifications';
 import { Link, Navigate } from "react-router-dom";
+import Swal from 'sweetalert2';
+import { logoutApi } from '../../api/serviceApi';
 const Header = (props) => {
   const logout = () =>{
-    localStorage.removeItem('loginData');
-    props.resetMount();
-    <Navigate to="/login" />
-    // window.location.reload();
+    logoutApi().then((response) => {
+      if(response.data.success){
+        localStorage.removeItem('loginData');
+        props.resetMount();
+        Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500});
+        const timer = setTimeout(() => {
+          <Navigate to="/login" />
+        }, 1000);
+        return () => clearTimeout(timer);
+      }
+      else{
+        NotificationManager.error(response.data.message, 'Error!');
+      }
+    })
+    .catch(error=>{
+        console.log("LandingPop", error)
+    });
   }
 
   return (

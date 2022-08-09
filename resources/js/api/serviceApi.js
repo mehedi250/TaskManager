@@ -31,3 +31,7 @@ export const deleteTaskApi = async (id) => {
 export const updateTaskApi = async (id, payload) => {
     return sendRequest("put", baseUrl+`tasks/${id}`, payload);
 }
+
+export const logoutApi = async () => {
+    return sendRequest("post", baseUrl+`auth/logout`, []);
+}
