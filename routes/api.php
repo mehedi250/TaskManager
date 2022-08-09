@@ -29,4 +29,5 @@ Route::middleware('auth:api')->group(function () {
     Route::post('auth/user', 'API\Auth\AuthAPIController@getUser');
     Route::apiResource('projects', 'API\ProjectController');
     Route::apiResource('tasks', 'API\TaskController');
+    Route::post('auth/logout', 'API\Auth\AuthAPIController@logout');
 });

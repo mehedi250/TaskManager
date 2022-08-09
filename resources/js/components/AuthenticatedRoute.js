@@ -5,6 +5,7 @@ import { checkIfAuthenticated } from '../api/authServiceApi';
 const AuthenticatedRoute = (props) => {
     // console.log('AuthenticatedRoute', props.auth) = 
     const data = checkIfAuthenticated();
+    console.log(data);
     if(props.login){
         return data ? <Outlet /> : <Navigate to="/login" />;
     }
