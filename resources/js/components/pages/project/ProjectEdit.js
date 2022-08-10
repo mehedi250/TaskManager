@@ -70,21 +70,21 @@ class ProjectEdit extends Component {
                                     <Form.Control onChange={this.handleName} value={this.state.name} type="text" placeholder="Enter Project Name" />
                                     <Form.Text className="text-danger">{this.handleError('name')}</Form.Text>
                                 </Form.Group>
-                                
-                                <Form.Group className="mb-3" controlId="formBasicPassword">
-                                    <Form.Label>Description</Form.Label>
-                                    <Form.Control onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="3" placeholder="Enter Project Description" />
-                                    <Form.Text className="text-danger">{this.handleError('description')}</Form.Text>
-                                </Form.Group>
-                                
                             </div>
                             <div className="col-md-4">
-                                <Form.Group className="mb-3">
-                                    <Form.Label>Status</Form.Label>
-                                    <Form.Select className='from-control' onChange={this.handleStatus} value={this.state.status}>
+                                <div className="form-group">
+                                    <label>Example select</label>
+                                    <select className="form-control"  onChange={this.handleStatus} value={this.state.status}>
                                         <option value={0}>Pending</option>
                                         <option value={1}>Complete</option>
-                                    </Form.Select>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="col-md-12">
+                                <Form.Group className="mb-3" controlId="formBasicPassword">
+                                    <Form.Label>Description  <span className="text-danger">*</span></Form.Label>
+                                    <Form.Control onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="3" placeholder="Enter Project Description" />
+                                    <Form.Text className="text-danger">{this.handleError('description')}</Form.Text>
                                 </Form.Group>
                             </div>
                         </div>

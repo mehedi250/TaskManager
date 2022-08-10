@@ -25,11 +25,11 @@ export default class TaskCard extends Component {
         updateTaskApi(id, postData).then((response) => {
             if(response.data.success){
                 this.setState( {status: newStatus});
-                NotificationManager.success(response.data.message, 'Success');
+                NotificationManager.success(response.data.message, 'Success', 1000);
                 // this.props.handleTaskStatusUpdate();
             }
             else{
-                NotificationManager.error(response.data.message, 'Error!');
+                NotificationManager.error(response.data.message, 'Error!', 1000);
             }
             this.setState({isLoading: false});
         })
@@ -74,20 +74,26 @@ export default class TaskCard extends Component {
             <Card className={`task-card ${(this.state.status===1)?"completed":""}`}>
                 <Card.Body>
                     <div className="row">
-                        <div className="col-md-7">
-                            <strong className={`text-${(this.state.status===1)?"success text-decoration-line-through":""}`}>{this.state.task.name} </strong>
-                            <Card.Text>
-                                <small className='text-muted'>{this.state.task.description}</small>
-                            </Card.Text>
-                        </div>
-                        <div className="col-md-5 text-right">
-                            {(this.state.status===0)?
-                                <Button variant='outline-success' className='mr-2 btn-sm' onClick={!this.state.isLoading?()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status):null}>✓ Mark as Completed</Button>
-                            :
-                                <Button variant='outline-info' className='mr-2 btn-sm' onClick={!this.state.isLoading?()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status):null}>Mark as Pending</Button>
-                            }
+                        <div className="col-md-7 d-flex align-items-center">
+                            <div className='pr-2 ' style={{fill:"red"}}>
+                                {this.state.status===1 ?
+                                    <img className='black-to-green-svg' onClick={()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status)} src={`${appUrl}assets/images/svg/checked.svg`} alt="" /> :
+                                    <img onClick={()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status)} src={`${appUrl}assets/images/svg/unchecked.svg`} alt="" />
+                                }
+                                
+                            </div>
+                            <div>
+                                <strong className={`text-${(this.state.status===1)?"success text-decoration-line-through":""}`}>{this.state.task.name} </strong>
+                                <Card.Text>
+                                    <small className='text-muted'>{this.state.task.description}</small>
+                                </Card.Text>    
+                            </div>
                             
-                            <Button variant='outline-danger' className='mr-2 btn-sm' onClick={!this.state.isLoading?()=>this.handleTaskDelete(this.state.task.id, this.props.index):null}><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
+                        </div>
+                        <div className="col-md-5 text-right d-flex align-items-center">
+                            <div className='ml-auto'>
+                                <Button variant='outline-danger' className='mr-2 my-0 btn-sm' onClick={!this.state.isLoading?()=>this.handleTaskDelete(this.state.task.id, this.props.index):null}><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
+                            </div>
                         </div>
                     </div>
                 </Card.Body>
