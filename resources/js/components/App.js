@@ -43,7 +43,7 @@ class App extends Component {
             <Router>
                 <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} resetMount={this.resetMount} />
                 <div  style={{minHeight: `calc(100vh - 110.4px)`}}>
-                <Container className='py-4'> 
+                
                     <NotificationContainer/>
                     <Routes>
                         <Route path="/" caseSensitive={false} element={<Home />} />
@@ -60,7 +60,7 @@ class App extends Component {
                             <Route path=":id" element={<ProjectView />} />
                         </Route>
                     </Routes>
-                </Container>
+            
                 </div>
                 <Footer/>
             </Router>

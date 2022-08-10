@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Badge, Button, Form, Spinner } from 'react-bootstrap';
+import { Badge, Button, Container, Form, Spinner } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Swal from "sweetalert2"; 
@@ -135,6 +135,7 @@ export default class ProjectList extends Component {
     render() {
         return (
             <>
+            <Container className='py-4'> 
             <div className="header-part">
                 <div className="float-left d-flex">
                     <h2 className='head-title-shadow'>Projects </h2>
@@ -167,6 +168,7 @@ export default class ProjectList extends Component {
             {this.state.isCreateProject && 
                 <ProjectCreate  handleCreateProject={this.handleCreateProject} handleProjectComplete={this.handleProjectComplete} />
             }
+            </Container>
             </>
         )
     }
