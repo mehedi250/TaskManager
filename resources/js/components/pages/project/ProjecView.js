@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Badge, Button, Card, Spinner } from 'react-bootstrap';
+import { Badge, Button, Card, Container, Spinner } from 'react-bootstrap';
 import { useParams } from "react-router-dom";
 import { getProjectApi } from '../../../api/serviceApi';
 import TaskCreate from '../task/TaskCreate';
@@ -84,6 +84,7 @@ class ProjectView extends Component {
    
         return (
             <>
+            <Container className='py-4'>
             <div className="header-part">
                 <div className="row">
                     <div className="col-md-7">
@@ -126,8 +127,7 @@ class ProjectView extends Component {
             {this.state.isCreateTask && 
                 <TaskCreate project={this.state.project} handleCreateTask={this.handleCreateTask} handleTaskComplete={this.handleTaskComplete} />
             }
-
-
+            </Container>
             </>
         )
     }
