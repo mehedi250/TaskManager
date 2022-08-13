@@ -11,12 +11,18 @@ export default class TaskCard extends Component {
         super(props);
         this.state = {
             isLoading: false,
+            isDisable: false,
             task: this.props.task,
             status: this.props.task.status
         };
     }
 
     handleTaskStatusUpdate=(id, status)=>{
+        if(this.state.isDisable){
+            return false;
+        }
+        this.setState({isDisable: true});
+
         let newStatus = 0;
         if(status===0){ newStatus = 1;}
         this.setState({isLoading: true});
@@ -31,15 +37,19 @@ export default class TaskCard extends Component {
             else{
                 NotificationManager.error(response.data.message, 'Error!', 1000);
             }
-            this.setState({isLoading: false});
+            this.setState({isDisable: false});
         })
         .catch(error=>{
-            this.setState({isLoading: false});
+            this.setState({isDisable: false});
             console.log("LandingPop", error)
         });
     }
 
-    handleTaskDelete = (id, removeIndex)=>{
+    handleTaskDelete = (id)=>{
+        if(this.state.isDisable){
+            return false;
+        }
+        this.setState({isDisable: true});
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -55,16 +65,19 @@ export default class TaskCard extends Component {
                     if(response.data.success){
                         Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500})
                         this.props.handleTaskDelete(this.state.task.id, this.props.index)
-                        this.setState({isLoading: false});
+                        this.setState({isDisable: false});
                     }else{
                         this.setState({isLoading: false});
                         NotificationManager.error(response.data.message, 'Error!');
                     }
                 })
                 .catch(error=>{
-                    this.setState({isLoading: false});
+                    this.setState({isDisable: false});
                     console.log("LandingPop", error)
                 }); 
+            }
+            else{
+                this.setState({isDisable: false});
             }
         })
     }
@@ -74,7 +87,7 @@ export default class TaskCard extends Component {
             <Card className={`task-card ${(this.state.status===1)?"completed":""}`}>
                 <Card.Body>
                     <div className="row">
-                        <div className="col-md-7 d-flex align-items-center">
+                        <div className="col-8 d-flex align-items-center">
                             <div className='pr-2 ' style={{fill:"red"}}>
                                 {this.state.status===1 ?
                                     <img className='black-to-green-svg' onClick={()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status)} src={`${appUrl}assets/images/svg/checked.svg`} alt="" /> :
@@ -90,9 +103,9 @@ export default class TaskCard extends Component {
                             </div>
                             
                         </div>
-                        <div className="col-md-5 text-right d-flex align-items-center">
+                        <div className="col-4 text-right d-flex align-items-center">
                             <div className='ml-auto'>
-                                <Button variant='outline-danger' className='mr-2 my-0 btn-sm' onClick={!this.state.isLoading?()=>this.handleTaskDelete(this.state.task.id, this.props.index):null}><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
+                                <Button variant='outline-danger' disabled={this.state.isDisable} className='mr-2 my-0 btn-sm' onClick={()=>this.handleTaskDelete(this.state.task.id)}><FontAwesomeIcon  icon={faTrash} /> Delete</Button>
                             </div>
                         </div>
                     </div>
