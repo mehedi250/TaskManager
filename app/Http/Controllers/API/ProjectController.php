@@ -48,7 +48,7 @@ class ProjectController extends Controller
                 'data' => []
             ]);
         }
-        $project = $this->projectRepository->findById($id);
+        $project = $this->projectRepository->findByIdUserId($id, $user->id);
 
         if(is_null($project)){
             return response()->json([
@@ -90,7 +90,12 @@ class ProjectController extends Controller
         }
 
         try {
-            $project = $this->projectRepository->create($request->all());
+            $data = [
+                'user_id' => $user->id,
+                'name' => $request->name,
+                'description' => $request->description
+            ];
+            $project = $this->projectRepository->create($data);
             if($project){
                 return response()->json([
                     'success' => true,
@@ -136,7 +141,7 @@ class ProjectController extends Controller
         ];
 
         try {
-            $project = $this->projectRepository->edit($data, $id);
+            $project = $this->projectRepository->edit($data, $user->id, $id);
             if($project){
                 return response()->json([
                     'success' => true,
@@ -161,7 +166,7 @@ class ProjectController extends Controller
                 'message' => 'User not found'
             ]);
         }
-        $project = $this->projectRepository->findById($id);
+        $project = $this->projectRepository->findByIdUserId($id, $user->id);
 
         if(is_null($project)){
             return response()->json([
@@ -170,7 +175,7 @@ class ProjectController extends Controller
             ]); 
         }else{
             $project->tasks()->delete();
-            $response = $this->projectRepository->delete($id);
+            $response = $this->projectRepository->delete($user->id, $id);
             if($response){
                 return response()->json([
                     'success' => true,

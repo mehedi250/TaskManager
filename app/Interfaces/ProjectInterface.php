@@ -7,12 +7,12 @@ Interface ProjectInterface
 {
     public function getAll($userId);
 
-    public function findById($id);
+    public function findByIdUserId($id, $userId);
 
     public function create($data);
 
-    public function edit($data, $id);
+    public function edit($data, $userId, $id);
 
-    public function delete($id);
+    public function delete($userId, $id);
 
 }
