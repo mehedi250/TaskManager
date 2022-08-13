@@ -143,9 +143,9 @@ export default class ProjectList extends Component {
                     
                 </div>
                 <div className="float-right d-flex">
-                    <Form.Control className='shadow-none border-primary common-search-box' onChange={this.handleSearch} value={this.state.search} type="text" placeholder="Search Project" />
-                    <div className='text-right' style={{width: "210px"}}>
-                        <button style={{display:"inline"}} className="btn btn-info text-white shadow-btn" onClick={this.handleCreateProject}>+ Create New</button>
+                    <Form.Control className='shadow-none border-primary common-search-box ' onChange={this.handleSearch} style={{maxWidth: '180px'}} value={this.state.search} type="text" placeholder="Search Project" />
+                    <div className='text-right'>
+                        <button className="btn btn-info text-white shadow-btn ml-2" onClick={this.handleCreateProject}>+ Create New</button>
                     </div>
                     
                 </div>

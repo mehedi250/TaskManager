@@ -67,7 +67,7 @@ const Header = (props) => {
             </Link>
 
             <Link className='btn btn-outline-light mx-1' to="/login" onClick={()=>logout()} >
-              <Nav.Item className='text-white'>Logout</Nav.Item>
+              <Nav.Item className=''>Logout</Nav.Item>
             </Link>
           </>
             

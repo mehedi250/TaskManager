@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Badge, Button, Card, Container, Spinner } from 'react-bootstrap';
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { getProjectApi } from '../../../api/serviceApi';
 import TaskCreate from '../task/TaskCreate';
 import ProjectEdit from './ProjectEdit';
@@ -104,6 +104,7 @@ class ProjectView extends Component {
                         <button className={`btn btn-outline-${this.state.project.status ===1?'success':'info'}`} disabled>
                             {this.state.project.status ===1?'✓Completed':'Pending'}
                         </button>
+                        <Link className='btn btn-info text-white shadow-btn ml-2' to="/projects">Back</Link>
                         <button className='btn btn-success shadow-btn ml-2' onClick={()=>this.setState({editStatus: !this.state.editStatus})}>{!this.state.editStatus?'Edit':'Cancel Edit'}</button>
                         {/* <Link className="btn btn-info text-white ml-2" to="/projects">Back</Link> */}
                         <button className="btn btn-info text-white shadow-btn ml-2" onClick={this.handleCreateTask} >+ Add Task</button>
