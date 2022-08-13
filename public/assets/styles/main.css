@@ -14,6 +14,7 @@ font-family: 'Teko', sans-serif; */
 
 html, body{
     font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
 }
 .mulish{
     font-family: 'Mulish', sans-serif;
@@ -153,4 +154,43 @@ html, body{
 
 .black-to-green-svg{
     filter: invert(67%) sepia(29%) saturate(900%) hue-rotate(93deg) brightness(89%) contrast(89%);
+}
+
+.home-top h2{
+    font-size: 44px;
+    font-weight: 800;
+    font-family: 'Archivo', sans-serif;
+    color: rgb(1, 1, 68);
+}
+.home-top p{
+    font-size: 24px;
+    font-weight: 500;
+    font-family: 'Archivo', sans-serif;
+    color: rgb(1, 1, 68);
+}
+
+.home-top .btn{
+    font-size: 20px;
+    font-weight: 600;
+    padding: 8px 30px;
+    border-radius: 25px;
+    font-family: 'Mulish', sans-serif;
+}
+
+
+body::-webkit-scrollbar {
+    width: 1em;
+    position: absolute;
+}
+   
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    position: absolute;
+}
+   
+body::-webkit-scrollbar-thumb {
+    background-color: rgb(194, 194, 194);
+    outline: 1px solid rgb(114, 93, 0);
+    border-radius: 10px;
+    
 }

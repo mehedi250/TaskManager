@@ -10,9 +10,9 @@ class ProjectRepository implements ProjectInterface{
         return Project::where('user_id', $userId)->withCount('tasks')->orderBy('id', 'desc')->get();
     }
 
-    public function findById($id)
+    public function findByIdUserId($id, $userId)
     {
-        return Project::where('id', $id)->with('tasks')->first();
+        return Project::where('id', $id)->where('user_id', $userId)->with('tasks')->first();
     }
 
     public function create($data)
@@ -20,14 +20,14 @@ class ProjectRepository implements ProjectInterface{
         return Project::create($data);
     }
 
-    public function edit($data, $id)
+    public function edit($data, $userId, $id)
     {
-        return Project::where('id', $id)->update($data);
+        return Project::where('id', $id)->where('user_id', $userId)->update($data);
     }
 
-    public function delete($id)
+    public function delete($userId, $id)
     {
-        return Project::where('id', $id)->delete();
+        return Project::where('id', $id)->where('user_id', $userId)->delete();
     }
 
 }
