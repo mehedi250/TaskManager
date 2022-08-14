@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import { Button, Form, Modal, Spinner } from 'react-bootstrap'
 import Swal from "sweetalert2"; 
 import {NotificationManager} from 'react-notifications';
-import { createProjectApi } from '../../../api/serviceApi';
+import { updateProjectApi } from '../../../api/serviceApi';
 
-class ProjectCreate extends Component {
+class ProjectUpdate extends Component {
     constructor(props){
         super(props);
         this.state = {
             isLoading: false,
-            name: "",
-            description: "",
+            name: this.props.project.name,
+            description: this.props.project.description,
+            status: this.props.project.status,
             show: true,
             errors: []
         };
@@ -22,18 +23,19 @@ class ProjectCreate extends Component {
     handleDescription =(e)=>{
         this.setState({description: e.target.value});
     }
+    handleStatus =(e)=>{
+        this.setState({status: e.target.value});
+    }
 
     handleSubmit = async (e)=>{
         e.preventDefault();
         this.setState({isLoading: true, errors: []});
-        const postData = {name: this.state.name, description: this.state.description, user_id: 1}
+        const postData = {name: this.state.name, description: this.state.description, status: parseInt(this.state.status)}
         
-        createProjectApi(postData).then((response) => {
+        updateProjectApi(this.props.project.id, postData).then((response) => {
             if(response.data.success){
-                Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500})
-                this.setState({name: "", description: "", errors: []});
-                this.handleClose();
-                this.props.handleProjectComplete(response.data.data);
+                Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500});
+                this.props.getProject();
             }
             else{
                 if(response.data.status === 'validation-error'){
@@ -56,7 +58,7 @@ class ProjectCreate extends Component {
     }
 
     handleClose = () =>{
-        this.props.handleCreateProject(false);
+        this.props.handleEditProject(false);
         this.setState({show: false});
     }
     render() {
@@ -64,7 +66,7 @@ class ProjectCreate extends Component {
         <>
         <Modal show={this.state.show} onHide={this.handleClose}>
             <Modal.Header>
-                <Modal.Title>Create New Project
+                <Modal.Title>Edit Project
                 </Modal.Title>
                 <button className='btn btn-outline-info btn-sm' onClick={this.handleClose}>x</button>
             </Modal.Header>
@@ -84,19 +86,18 @@ class ProjectCreate extends Component {
                         <Form.Control className='shadow-none border-primary' onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="3" placeholder="Enter Project Description" />
                         <Form.Text className="text-danger">{this.handleError('description')}</Form.Text>
                     </Form.Group>
-                    
-                    
-                    <Button variant="primary" type="submit" disabled={this.state.isLoading} >
-                        { this.state.isLoading ?
-                            <> 
-                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
-                            Saving...
-                            </> :
-                            'Add Project'
-                        }
+                    <div className="form-group">
+                        <label>select Status</label>
+                        <select className="form-control"  onChange={this.handleStatus} value={this.state.status}>
+                            <option value={0}>Pending</option>
+                            <option value={1}>Complete</option>
+                        </select>
+                    </div>
+
+                    <Button variant="primary" type="submit" disabled={this.state.isLoading}>
+                        {this.state.isLoading && <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> }
+                        Update
                     </Button>
-                    
-                    
                 </Form>
             </Modal.Body>
         </Modal>
@@ -105,4 +106,4 @@ class ProjectCreate extends Component {
     }
 }
 
-export default ProjectCreate;
+export default ProjectUpdate;

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { checkIfAuthenticated } from '../../api/authServiceApi';
 
 export default class Home extends Component {
@@ -27,8 +28,8 @@ export default class Home extends Component {
                     <h2>Simple. Agile. Secure.</h2>
                     <p>Task Management for Team</p>
                     <div className="text-center">
-                        <a className='btn btn-outline-success mx-2' href="">Login</a>
-                        <a className='btn btn-primary mx-2' href="">Register</a>
+                        <Link className='btn btn-outline-success mx-2' to="/login">Login</Link>
+                        <Link className='btn btn-primary mx-2' to="/register">Register</Link>
                     </div>
                 </div>
             </Container>
