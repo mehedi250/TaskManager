@@ -96,8 +96,14 @@ class TaskCreate extends Component {
                         Saving...
                     </Button>
                     :
-                    <Button variant="primary" type="submit">
-                        Add Task
+                    <Button variant="primary" type="submit" disabled={this.state.isLoading} >
+                        { this.state.isLoading ?
+                            <> 
+                            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+                            Saving...
+                            </> :
+                            'Add Task'
+                        }
                     </Button>
                     }
                     
