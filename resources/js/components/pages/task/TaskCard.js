@@ -90,8 +90,8 @@ export default class TaskCard extends Component {
                         <div className="col-8 d-flex align-items-center">
                             <div className='pr-2 ' style={{fill:"red"}}>
                                 {this.state.status===1 ?
-                                    <img className='black-to-green-svg' onClick={()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status)} src={`${appUrl}assets/images/svg/checked.svg`} alt="" /> :
-                                    <img onClick={()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status)} src={`${appUrl}assets/images/svg/unchecked.svg`} alt="" />
+                                    <img className='black-to-green-svg cursor-pointer' onClick={()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status)} src={`${appUrl}assets/images/svg/checked.svg`} alt="" /> :
+                                    <img className='cursor-pointer' onClick={()=>this.handleTaskStatusUpdate(this.state.task.id, this.state.status)} src={`${appUrl}assets/images/svg/unchecked.svg`} alt="" />
                                 }
                                 
                             </div>

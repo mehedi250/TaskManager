@@ -131,6 +131,11 @@ html, body{
     0%   {transform: rotate(0deg);}
     100%   {transform: rotate(360deg);}
 }
+@keyframes scale {
+    0%   {transform: scale(0.5); opacity: 1;}
+    50%   {transform: scale(1.5); opacity: 0.5;}
+    100%   {transform: scale(0.5); opacity: 1;}
+}
 
 .modal-logo{
     border-radius: 50%;
@@ -197,3 +202,84 @@ body::-webkit-scrollbar-thumb {
 .btn{
     white-space: nowrap;
 }
+.cursor-pointer{
+    cursor: pointer;
+}
+.contact-container {
+    position: relative; 
+    top: 50%;
+    transform: translate(-0%, 50%);
+}
+.dev-card{
+    background: linear-gradient(150deg, #39ef74, #4600f1 100%);
+    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
+    color: #ffffff;
+    border-radius: 30px;
+    font-family: 'Mulish', sans-serif; 
+}
+.dev-card .dev-img img{
+    border-radius: 50%;
+    height: 100px;
+    width: 100px;
+    border: 1px solid beige;
+}
+.dev-card p{
+    margin-bottom: 0px;
+}
+.about-card{
+    padding: 10px;
+    border: 1px solid rgb(221, 221, 221);
+    border-radius: 8px;
+    color: #16004e;
+}
+.about-card img{
+    border-radius: 8px;
+}
+
+.contact-star4, .contact-star5 {
+    position: absolute;
+    z-index: -1;
+    height: 70px;
+    opacity: 0.8;
+}
+
+.contact-star4 {
+    top: 100px;
+    left: 80px;
+    -webkit-animation: rotation-360 4s linear infinite;
+    animation: rotation-360 4s linear infinite;
+}
+.contact-star5 {
+    top: 120px;
+    right: 80px;
+    -webkit-animation: scale 4s linear infinite;
+    animation: scale 4s linear infinite;
+}
+
+.home-animation-box{
+    position: absolute;
+    z-index: -1;
+    top: 100px;
+    right: 5%;
+    height: 70px;
+    width: 70px;
+    border-radius: 5px;
+    border: 2px solid rgb(151, 255, 165);
+    -webkit-animation: rotation-360 4s linear infinite;
+    animation: rotation-360 4s linear infinite;
+}
+
+.home-btm-animation-box1{
+    position: absolute;
+    z-index: 2;
+    width: 70px;
+    height: 70px;
+    bottom: 30%;
+    left: 5%;
+    border-radius: 5px;
+    border: 2px solid rgb(151, 255, 241);
+    -webkit-animation: rotation-360 4s linear infinite;
+    animation: rotation-360 4s linear infinite;
+    display: block;
+}
+
