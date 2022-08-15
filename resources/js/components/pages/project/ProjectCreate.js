@@ -26,7 +26,7 @@ class ProjectCreate extends Component {
     handleSubmit = async (e)=>{
         e.preventDefault();
         this.setState({isLoading: true, errors: []});
-        const postData = {name: this.state.name, description: this.state.description, user_id: 1}
+        const postData = {name: this.state.name, description: this.state.description}
         
         createProjectApi(postData).then((response) => {
             if(response.data.success){
@@ -95,8 +95,6 @@ class ProjectCreate extends Component {
                             'Add Project'
                         }
                     </Button>
-                    
-                    
                 </Form>
             </Modal.Body>
         </Modal>

@@ -80,13 +80,13 @@ class TaskCreate extends Component {
                 <Form onSubmit={this.handleSubmit}>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Task Name <span className="text-danger">*</span></Form.Label>
-                        <Form.Control onChange={this.handleName} value={this.state.name} type="text" placeholder="Enter Task Name" />
+                        <Form.Control className='shadow-none' onChange={this.handleName} value={this.state.name} type="text" placeholder="Enter Task Name" />
                         <Form.Text className="text-danger">{this.handleError('name')}</Form.Text>
                     </Form.Group>
                     
                     <Form.Group className="mb-3" controlId="formBasicPassword">
                         <Form.Label>Description</Form.Label>
-                        <Form.Control onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="3" placeholder="Enter Task Description" />
+                        <Form.Control className='shadow-none' onChange={this.handleDescription} value={this.state.description} type="text" as="textarea" rows="3" placeholder="Enter Task Description" />
                         <Form.Text className="text-danger">{this.handleError('description')}</Form.Text>
                     </Form.Group>
                     
