@@ -230,10 +230,14 @@ body::-webkit-scrollbar-thumb {
     padding: 10px;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 8px;
-    color: #16004e;
 }
 .about-card img{
     border-radius: 8px;
+}
+.about-card li{
+    line-height: 30px;
+    font-size: 17px;
+    color: #0b0027;
 }
 
 .contact-star4, .contact-star5 {

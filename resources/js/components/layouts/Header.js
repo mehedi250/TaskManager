@@ -62,7 +62,7 @@ const Header = (props) => {
           }
           {props.isLoggedIn &&
           <>
-            <Link className='btn btn-outline-success mx-1' to="/">
+            <Link className='btn btn-outline-success mx-1' to="/profile">
                 <Nav.Item className='text-white'>{props.user.name}</Nav.Item>
             </Link>
 

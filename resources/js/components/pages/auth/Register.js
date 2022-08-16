@@ -101,14 +101,14 @@ class Register extends Component {
                 <div className="row">
                     <div className="col-md-6">
                         <Form.Group className="mb-3">
-                            <Form.Label>Name</Form.Label>
+                            <Form.Label>Name <span className="text-danger">*</span></Form.Label>
                             <Form.Control value={this.state.name} onChange={this.handleName} required className='shadow-none' type="text" placeholder="Enter name" />
                             <Form.Text className="text-danger">{this.handleError('name')}</Form.Text>
                         </Form.Group>
                     </div>
                     <div className="col-md-6">
                         <Form.Group className="mb-3">
-                            <Form.Label>Email address</Form.Label>
+                            <Form.Label>Email address  <span className="text-danger">*</span></Form.Label>
                             <Form.Control value={this.state.email} onChange={this.handleEmail}  required className='shadow-none' type="email" placeholder="Enter email" />
                             <Form.Text className="text-danger">{this.handleError('email')}</Form.Text>
                         </Form.Group>
@@ -117,14 +117,14 @@ class Register extends Component {
                 <div className="row">
                     <div className="col-md-6">
                         <Form.Group className="mb-3">
-                            <Form.Label>Password</Form.Label>
+                            <Form.Label>Password  <span className="text-danger">*</span></Form.Label>
                             <Form.Control value={this.state.password} onChange={this.handlePassword}  required className='shadow-none' type="password" placeholder="Password" />
                             <Form.Text className="text-danger">{this.handleError('password')}</Form.Text>
                         </Form.Group>
                     </div>
                     <div className="col-md-6">
                         <Form.Group className="mb-3">
-                            <Form.Label>Conform Password</Form.Label>
+                            <Form.Label>Conform Password  <span className="text-danger">*</span></Form.Label>
                             <Form.Control value={this.state.password_confirmation}  onChange={this.handlePasswordConfirmation}  required className='shadow-none' type="password" placeholder="Conform Password" />
                             <Form.Text className="text-danger">{this.handleError('password_confirmation')}</Form.Text>
                         </Form.Group>

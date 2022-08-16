@@ -19,3 +19,7 @@ export const loginApi = async (payload) => {
 export const registerApi = async (payload) => {
     return sendRequest("post", baseUrl+'auth/register', payload);
 }
+
+export const getUserApi = async () =>{
+    return sendRequest("post", baseUrl+'auth/user', []);
+}

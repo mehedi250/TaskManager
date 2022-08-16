@@ -72,7 +72,7 @@ class ProjectCreate extends Component {
                 <div className="text-center">
                     <img className='modal-logo' src={`${appUrl}assets/images/favicon.png`} alt="" />
                 </div>
-                <Form onSubmit={this.handleSubmit}>
+                <Form onSubmit={this.handleSubmit}  autocomplete="off">
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Project Name <span className="text-danger">*</span></Form.Label>
                         <Form.Control className='shadow-none border-primary' onChange={this.handleName} value={this.state.name} type="text" placeholder="Enter Project Name" />

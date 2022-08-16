@@ -16,6 +16,7 @@ import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import { checkIfAuthenticated } from '../api/authServiceApi';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import Profile from './pages/Profile';
 
 class App extends Component {
     state = {
@@ -53,6 +54,10 @@ class App extends Component {
                         <Route path="/" element={<AuthenticatedRoute login={false}/>}>
                             <Route path="/register" caseSensitive={false} element={<Register />} />
                             <Route path="/login" caseSensitive={false} element={<Login mount={this.resetMount} />} />
+                        </Route>
+
+                        <Route path="/" element={<AuthenticatedRoute login={true}/>}>
+                            <Route path="/profile" caseSensitive={false} element={<Profile />} />
                         </Route>
                        
                         <Route path="/projects/" element={<AuthenticatedRoute login={true} auth={this.state.isLoggedIn}/>}>
