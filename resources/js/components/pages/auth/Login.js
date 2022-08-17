@@ -79,27 +79,29 @@ class Login extends Component {
   render() {
     return (
         <>
-        <div className="mx-auto p-5 my-5 login-form">
-            <div className="text-center">
-                <img className='modal-logo' src={`${appUrl}assets/images/favicon.png`} alt="" />
+        <div className="py-5">
+            <div className="mx-auto p-5 login-form">
+                <div className="text-center">
+                    <img className='modal-logo' src={`${appUrl}assets/images/favicon.png`} alt="" />
+                </div>
+                <Form onSubmit={this.handleSubmit}>
+                    <Form.Group className="mb-3">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control value={this.state.email} onChange={this.handleEmail}  required className='shadow-none' type="email" placeholder="Enter email" />
+                        <Form.Text className="text-danger">{this.handleError('email')}</Form.Text>
+                    </Form.Group>
+
+                    <Form.Group className="mb-3">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control value={this.state.password} onChange={this.handlePassword}  required className='shadow-none' type="password" placeholder="Password" />
+                        <Form.Text className="text-danger">{this.handleError('password')}</Form.Text>
+                    </Form.Group>
+                    <Button variant="primary" type="submit" className='w-100'>
+                        LOGIN
+                    </Button>
+                </Form>
+
             </div>
-            <Form onSubmit={this.handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Email address</Form.Label>
-                    <Form.Control value={this.state.email} onChange={this.handleEmail}  required className='shadow-none' type="email" placeholder="Enter email" />
-                    <Form.Text className="text-danger">{this.handleError('email')}</Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                    <Form.Label>Password</Form.Label>
-                    <Form.Control value={this.state.password} onChange={this.handlePassword}  required className='shadow-none' type="password" placeholder="Password" />
-                    <Form.Text className="text-danger">{this.handleError('password')}</Form.Text>
-                </Form.Group>
-                <Button variant="primary" type="submit" className='w-100'>
-                    LOGIN
-                </Button>
-            </Form>
-
         </div>
         </>
     )
