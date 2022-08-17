@@ -207,8 +207,9 @@ body::-webkit-scrollbar-thumb {
 }
 .contact-container {
     position: relative; 
-    top: 50%;
-    transform: translate(-0%, 50%);
+    /* padding-top: 230px; */
+    /* margin-top: 230px; */
+
 }
 .dev-card{
     background: linear-gradient(150deg, #39ef74, #4600f1 100%);
@@ -216,6 +217,7 @@ body::-webkit-scrollbar-thumb {
     color: #ffffff;
     border-radius: 30px;
     font-family: 'Mulish', sans-serif; 
+    margin-top: 120px;
 }
 .dev-card .dev-img img{
     border-radius: 50%;
@@ -230,10 +232,14 @@ body::-webkit-scrollbar-thumb {
     padding: 10px;
     border: 1px solid rgb(221, 221, 221);
     border-radius: 8px;
-    color: #16004e;
 }
 .about-card img{
     border-radius: 8px;
+}
+.about-card li{
+    line-height: 30px;
+    font-size: 17px;
+    color: #0b0027;
 }
 
 .contact-star4, .contact-star5 {
@@ -244,13 +250,13 @@ body::-webkit-scrollbar-thumb {
 }
 
 .contact-star4 {
-    top: 100px;
+    top: 70px;
     left: 80px;
     -webkit-animation: rotation-360 4s linear infinite;
     animation: rotation-360 4s linear infinite;
 }
 .contact-star5 {
-    top: 120px;
+    top: 80px;
     right: 80px;
     -webkit-animation: scale 4s linear infinite;
     animation: scale 4s linear infinite;
@@ -259,7 +265,7 @@ body::-webkit-scrollbar-thumb {
 .home-animation-box{
     position: absolute;
     z-index: -1;
-    top: 100px;
+    top: 50px;
     right: 5%;
     height: 70px;
     width: 70px;

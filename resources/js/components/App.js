@@ -16,6 +16,7 @@ import Register from './pages/auth/Register';
 import Login from './pages/auth/Login';
 import { checkIfAuthenticated } from '../api/authServiceApi';
 import AuthenticatedRoute from './AuthenticatedRoute';
+import Profile from './pages/Profile';
 
 class App extends Component {
     state = {
@@ -23,14 +24,20 @@ class App extends Component {
         isLoggedIn: false
     }
     componentDidMount(){
-        if(checkIfAuthenticated()){
-            this.setState({user: checkIfAuthenticated(), isLoggedIn: true});
+        const response = checkIfAuthenticated();
+        if(response){
+            this.setState({user: response, isLoggedIn: true});
+        }
+        else{
+            this.setState({user: {}, isLoggedIn: false});
         }
     }
 
     resetMount = () =>{
-        if(checkIfAuthenticated()){
-            this.setState({user: checkIfAuthenticated(), isLoggedIn: true});
+        const response = checkIfAuthenticated();
+        // console.log(response);
+        if(response){
+            this.setState({user: response, isLoggedIn: true});
         }
         else{
             this.setState({user: {}, isLoggedIn: false});
@@ -41,8 +48,8 @@ class App extends Component {
         return (
         <div>
             <Router>
-                <Header isLoggedIn={this.state.isLoggedIn} user={this.state.user} resetMount={this.resetMount} />
-                <div  style={{minHeight: `calc(100vh - 110.4px)`}}>
+                <Header isLoggedIn={this.state.isLoggedIn} resetMount={this.resetMount} />
+                <div  style={{minHeight: `calc(100vh - 110.4px)`, position: "relative"}}>
                 
                     <NotificationContainer/>
                     <Routes>
@@ -50,9 +57,13 @@ class App extends Component {
                         <Route path="/about" caseSensitive={false} element={<About />} />
                         <Route path="/contact" caseSensitive={false} element={<Contact />} />
 
-                        <Route path="/" element={<AuthenticatedRoute login={false}/>}>
+                        <Route path="" element={<AuthenticatedRoute login={false}/>}>
                             <Route path="/register" caseSensitive={false} element={<Register />} />
                             <Route path="/login" caseSensitive={false} element={<Login mount={this.resetMount} />} />
+                        </Route>
+
+                        <Route path="" element={<AuthenticatedRoute login={true}/>}>
+                            <Route path="/profile" caseSensitive={false} element={<Profile />} />
                         </Route>
                        
                         <Route path="/projects/" element={<AuthenticatedRoute login={true} auth={this.state.isLoggedIn}/>}>

@@ -93,49 +93,51 @@ class Register extends Component {
     
     return (
         <>
-        <div className="mx-auto p-5 my-5 register-form">
-            <div className="text-center pb-3">
-                <img className='modal-logo' src={`${appUrl}assets/images/favicon.png`} alt="" />
-            </div>
-            <Form onSubmit={this.handleSubmit}>
-                <div className="row">
-                    <div className="col-md-6">
-                        <Form.Group className="mb-3">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control value={this.state.name} onChange={this.handleName} required className='shadow-none' type="text" placeholder="Enter name" />
-                            <Form.Text className="text-danger">{this.handleError('name')}</Form.Text>
-                        </Form.Group>
-                    </div>
-                    <div className="col-md-6">
-                        <Form.Group className="mb-3">
-                            <Form.Label>Email address</Form.Label>
-                            <Form.Control value={this.state.email} onChange={this.handleEmail}  required className='shadow-none' type="email" placeholder="Enter email" />
-                            <Form.Text className="text-danger">{this.handleError('email')}</Form.Text>
-                        </Form.Group>
-                    </div>
+        <div className="py-5">
+            <div className="mx-auto p-5 register-form">
+                <div className="text-center pb-3">
+                    <img className='modal-logo' src={`${appUrl}assets/images/favicon.png`} alt="" />
                 </div>
-                <div className="row">
-                    <div className="col-md-6">
-                        <Form.Group className="mb-3">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control value={this.state.password} onChange={this.handlePassword}  required className='shadow-none' type="password" placeholder="Password" />
-                            <Form.Text className="text-danger">{this.handleError('password')}</Form.Text>
-                        </Form.Group>
+                <Form onSubmit={this.handleSubmit}>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <Form.Group className="mb-3">
+                                <Form.Label>Name <span className="text-danger">*</span></Form.Label>
+                                <Form.Control value={this.state.name} onChange={this.handleName} required className='shadow-none' type="text" placeholder="Enter name" />
+                                <Form.Text className="text-danger">{this.handleError('name')}</Form.Text>
+                            </Form.Group>
+                        </div>
+                        <div className="col-md-6">
+                            <Form.Group className="mb-3">
+                                <Form.Label>Email address  <span className="text-danger">*</span></Form.Label>
+                                <Form.Control value={this.state.email} onChange={this.handleEmail}  required className='shadow-none' type="email" placeholder="Enter email" />
+                                <Form.Text className="text-danger">{this.handleError('email')}</Form.Text>
+                            </Form.Group>
+                        </div>
                     </div>
-                    <div className="col-md-6">
-                        <Form.Group className="mb-3">
-                            <Form.Label>Conform Password</Form.Label>
-                            <Form.Control value={this.state.password_confirmation}  onChange={this.handlePasswordConfirmation}  required className='shadow-none' type="password" placeholder="Conform Password" />
-                            <Form.Text className="text-danger">{this.handleError('password_confirmation')}</Form.Text>
-                        </Form.Group>
+                    <div className="row">
+                        <div className="col-md-6">
+                            <Form.Group className="mb-3">
+                                <Form.Label>Password  <span className="text-danger">*</span></Form.Label>
+                                <Form.Control value={this.state.password} onChange={this.handlePassword}  required className='shadow-none' type="password" placeholder="Password" />
+                                <Form.Text className="text-danger">{this.handleError('password')}</Form.Text>
+                            </Form.Group>
+                        </div>
+                        <div className="col-md-6">
+                            <Form.Group className="mb-3">
+                                <Form.Label>Conform Password  <span className="text-danger">*</span></Form.Label>
+                                <Form.Control value={this.state.password_confirmation}  onChange={this.handlePasswordConfirmation}  required className='shadow-none' type="password" placeholder="Conform Password" />
+                                <Form.Text className="text-danger">{this.handleError('password_confirmation')}</Form.Text>
+                            </Form.Group>
+                        </div>
                     </div>
-                </div>
 
-                <Button variant="primary" type="submit" disabled={this.state.isLoading}>
-                    REGISTER
-                </Button>
-            </Form>
-  
+                    <Button variant="primary" type="submit" disabled={this.state.isLoading}>
+                        REGISTER
+                    </Button>
+                </Form>
+    
+            </div>
         </div>
         </>
     )

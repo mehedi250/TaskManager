@@ -1,20 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { Container, Nav, Navbar } from 'react-bootstrap';
 import { NotificationManager } from 'react-notifications';
-import { Link, Navigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Swal from 'sweetalert2';
+import {useNavigate} from "react-router-dom";
+import { checkIfAuthenticated } from '../../api/authServiceApi';
 import { logoutApi } from '../../api/serviceApi';
+
 const Header = (props) => {
+  const [user, setUser] = useState({});
+  const [isLoggedIn, setIsLogIn] = useState(props.isLoggedIn);
+  const navigate = useNavigate();
+
+  
+  const handleRedirect =()=>{
+    // setIsLogIn(false);
+    props.resetMount();
+    navigate('/login');
+  }
+
   const logout = () =>{
     logoutApi().then((response) => {
       if(response.data.success){
         localStorage.removeItem('loginData');
-        props.resetMount();
         Swal.fire({icon: 'success', title: response.data.message, showConfirmButton: false, timer: 1500});
-        const timer = setTimeout(() => {
-          <Navigate to="/login" />
-        }, 1000);
-        return () => clearTimeout(timer);
+        setTimeout(handleRedirect, 1600);
       }
       else{
         NotificationManager.error(response.data.message, 'Error!');
@@ -24,6 +35,30 @@ const Header = (props) => {
         console.log("LandingPop", error)
     });
   }
+
+  useEffect(() => {
+    const response = checkIfAuthenticated();
+    if(response){
+      setUser(response);
+      setIsLogIn(true)
+    }
+    else{
+      setUser({});
+      setIsLogIn(false)
+    }
+  }, [props.isLoggedIn]);
+
+  useEffect(() => {
+    const response = checkIfAuthenticated();
+    if(response){
+      setUser(response);
+      setIsLogIn(true)
+    }
+    else{
+      setUser({});
+      setIsLogIn(false)
+    }
+  }, []);
 
   return (
     <Navbar  bg="dark" variant="dark" expand="lg" sticky='top'>
@@ -35,7 +70,7 @@ const Header = (props) => {
             <Link to="">
               <Nav.Item className='text-white mx-3'>Home</Nav.Item>
             </Link>
-            {props.isLoggedIn &&
+            {isLoggedIn &&
             <Link to="/projects">
               <Nav.Item className='text-white mx-3'>Projects</Nav.Item>
             </Link>
@@ -49,7 +84,7 @@ const Header = (props) => {
           </Nav>
           
           <Nav className="ml-auto">
-          {!props.isLoggedIn &&
+          {!isLoggedIn &&
           <>
             <Link className='btn btn-outline-success mx-1' to="/login">
               <Nav.Item className='text-white'>Login</Nav.Item>
@@ -60,19 +95,24 @@ const Header = (props) => {
           </>
           
           }
-          {props.isLoggedIn &&
+          {isLoggedIn &&
           <>
-            <Link className='btn btn-outline-success mx-1' to="/">
-                <Nav.Item className='text-white'>{props.user.name}</Nav.Item>
+            <Link className='btn btn-outline-success mx-1' to="/profile">
+                <Nav.Item className='text-white'>{user.name}</Nav.Item>
             </Link>
 
-            <Link className='btn btn-outline-light mx-1' to="/login" onClick={()=>logout()} >
+            {/* <Link className='btn btn-outline-light mx-1' to="/login" onClick={()=>logout()} >
               <Nav.Item className=''>Logout</Nav.Item>
-            </Link>
+            </Link> */}
           </>
             
           }
           </Nav>
+          {isLoggedIn &&
+          <span className='btn btn-outline-light mx-1' onClick={()=>logout()}>
+            Logout
+          </span>
+          }
         </Navbar.Collapse>
     </Container>
     </Navbar>
