@@ -35,8 +35,7 @@
 </head>
 
 <body>
-    <div id="app" class="d-flex flex-column min-vh-100">
-
+    <div id="app" class="d-flex flex-column min-vh-100" style="overflow:hidden">
     </div>
 </body>
 </html>

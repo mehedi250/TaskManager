@@ -147,20 +147,21 @@ html, body{
     max-width: 400px;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-
 }
 
 .register-form{
     max-width: 700px;
     border-radius: 8px;
     box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-
 }
 
 .black-to-green-svg{
     filter: invert(67%) sepia(29%) saturate(900%) hue-rotate(93deg) brightness(89%) contrast(89%);
 }
-
+.home-top{
+    position: relative;
+    z-index: 5;
+}
 .home-top h2{
     font-size: 44px;
     font-weight: 800;
@@ -197,7 +198,6 @@ body::-webkit-scrollbar-thumb {
     background-color: rgb(194, 194, 194);
     outline: 1px solid rgb(114, 93, 0);
     border-radius: 10px;
-    
 }
 .btn{
     white-space: nowrap;
@@ -207,9 +207,6 @@ body::-webkit-scrollbar-thumb {
 }
 .contact-container {
     position: relative; 
-    /* padding-top: 230px; */
-    /* margin-top: 230px; */
-
 }
 .dev-card{
     background: linear-gradient(150deg, #39ef74, #4600f1 100%);
@@ -287,5 +284,15 @@ body::-webkit-scrollbar-thumb {
     -webkit-animation: rotation-360 4s linear infinite;
     animation: rotation-360 4s linear infinite;
     display: block;
+}
+
+.home-btm-img{
+    position: absolute;
+    max-width: 40%;
+    z-index: 1;
+    margin: 0;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, -0%);
 }
 

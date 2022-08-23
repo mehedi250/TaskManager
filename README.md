@@ -23,4 +23,4 @@ run bellow command in another terminal and keep it always open \
 npm run watch
 
 ## Developer
-### `Md. Mehedi Hasan Shawon`
+### Md. Mehedi Hasan Shawon
